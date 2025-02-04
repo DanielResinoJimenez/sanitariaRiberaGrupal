@@ -6,7 +6,7 @@ class User extends Model {}
 
 Model.init({
     id_muestra: {
-
+        
     },
     fecha_muestra: {
 
@@ -18,7 +18,7 @@ Model.init({
 
     },
     tincion: {
-        
+
     }
 },{
 
