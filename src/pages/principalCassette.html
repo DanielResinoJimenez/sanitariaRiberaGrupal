@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanitaria Ribera</title>
+    <!-- cdn de Tailwind -->
+     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+
+</head>
+<body class="bg-blue-100 min-h-screen">
+  <div class="container mx-auto max-w-[1400px] p-8">
+    <!-- Header -->
+    <div class="bg-gradient-to-r from-blue-300 to-blue-500 text-white py-6 px-8 rounded-lg shadow-lg">
+      <div class="flex flex-wrap justify-between items-center gap-6">
+        <!-- Órganos -->
+        <div class="flex-1 min-w-[200px]">
+          <label for="organos" class="block text-sm font-semibold mb-1">Órganos</label>
+          <select id="organos" class="form-select blue__color p-2 rounded-md border-gray-300 bg-white shadow-sm focus:ring-blue-300 focus:border-blue-500 text-black">
+            <option disabled selected>Seleccionar un Órgano</option>
+            <option value="*">Todos</option>
+            <optgroup label="Sistema Nervioso">
+              <option>Encéfalo</option>
+              <option>Médula Espinal</option>
+              <option>Nervio</option>
+              <option>Ganglio Nervioso</option>
+            </optgroup>
+
+            <optgroup label="Tegumento">
+              <option>Piel</option>
+              <option>Uña</option>
+              <option>Pelo</option>
+            </optgroup>
+
+            <optgroup label="Cardiovascular">
+              <option>Corazón</option>
+              <option>Venas</option>
+              <option>Arteria</option>
+            </optgroup>
+
+            <optgroup label="Linfático">
+              <option>Ganglio Linfático</option>
+              <option>Timo</option>
+              <option>Bazo</option>
+            </optgroup>
+
+            <optgroup label="Sistema Digestivo">
+              <option>Lengua</option>
+              <option>Esófago</option>
+              <option>Estómago</option>
+              <option>Intestino Delgado</option>
+              <option>Intestino Grueso</option>
+              <option>Diente</option>
+              <option>Glándula Salivar</option>
+              <option>Páncrea</option>
+              <option>Hígado</option>
+            </optgroup>
+
+            <optgroup label="Aparato Excretor">
+              <option>Riñón</option>
+              <option>Vejiga</option>
+            </optgroup>
+
+            <optgroup label="Respiratorio">
+              <option>Tráquea</option>
+              <option>Bronquios</option>
+              <option>Tejido Respiratorio</option>
+            </optgroup>
+
+            <optgroup label="Endocrino">
+              <option>Tiroides</option>
+              <option>Parótidas</option>
+              <option>Suprarrenales</option>
+              <option>Ovario</option>
+              <option>Testículo</option>
+            </optgroup>
+
+            <optgroup label="Locomotor">
+              <option>Hueso</option>
+              <option>Musculo Esquelético</option>
+            </optgroup>
+            <option>Otros</option>
+          </select>
+        </div>
+
+        <!-- Código QR -->
+        <div class="flex-1 min-w-[150px]">
+          <label for="qr" class="block text-sm font-semibold mb-1">Escanear QR</label>
+          <input type="file" id="qr" class="form-input p-2 rounded-md border-gray-300 bg-white shadow-sm focus:ring-blue-300 focus:border-blue-500 text-black" placeholder="Escanear QR">
+        </div>
+
+        <!-- Fecha 1 -->
+        <div class="flex-1 min-w-[200px]">
+          <label for="fecha1" class="block text-sm font-semibold mb-1">Fecha</label>
+          <input type="date" id="fecha1" class="form-input p-2 rounded-md border-gray-300 bg-white shadow-sm focus:ring-blue-300 focus:border-blue-500 text-black">
+        </div>
+
+        <!-- Fecha 2 -->
+        <div class="flex-1 min-w-[200px]">
+          <label for="fecha2" class="block text-sm font-semibold mb-1">Fecha</label>
+          <input type="date" id="fecha2" class="form-input p-2 rounded-md border-gray-300 bg-white shadow-sm focus:ring-blue-300 focus:border-blue-500 text-black">
+        </div>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <main class="mt-8 space-y-8">
+      <!-- Sección CASSETTES y DETALLE CASSETTE en columnas -->
+      <div class="flex flex-wrap gap-8">
+        <!-- Sección CASSETTES -->
+        <section class="flex-1 bg-white border border-blue-200 rounded-lg p-6 shadow-md">
+          <h2 class="text-center text-blue-700 font-bold text-lg mb-4">CASSETTES</h2>
+          <table class="table-auto w-full bg-blue-50 border border-blue-200 rounded-lg">
+            <thead>
+              <tr class="bg-blue-100">
+                <th class="px-4 py-2 text-left text-blue-600">Fecha</th>
+                <th class="px-4 py-2 text-left text-blue-600">Descripción</th>
+                <th class="px-4 py-2 text-left text-blue-600">Órgano</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Sección DETALLE CASSETTE -->
+        <section class="flex-1 bg-white border border-blue-200 rounded-lg p-6 shadow-md">
+          <div class="text-end">
+            <button class="bg-green-400 text-white px-4 py-2 rounded-lg hover:bg-green-500 shadow-md transition-all">Nuevo</button>
+          </div>
+          <h2 class="text-center text-blue-700 font-bold text-lg mt-4">DETALLE CASSETTE</h2>
+          <ul class="list-none mt-4 space-y-2">
+            <li><span class="font-bold">Descripción:</span> <span id="cassette__descripcion">---</span></li>
+            <li><span class="font-bold">Órgano:</span> <span id="cassette__organo">---</span></li>
+            <li><span class="font-bold">Características:</span> <span id="cassette__caracteristicas">---</span></li>
+            <li><span class="font-bold">Observaciones:</span> <span id="cassette__observaciones">---</span></li>
+            <li><span class="font-bold">Código QR:</span> <span id="cassette__codigoqr">---</span></li>
+          </ul>
+          <div class="flex justify-between mt-6">
+            <button class="bg-red-400 text-white px-4 py-2 rounded-lg hover:bg-red-500 shadow-md transition-all" id="btnborrar">Borrar</button>
+            <button class="bg-blue-400 text-white px-4 py-2 rounded-lg hover:bg-blue-500 shadow-md transition-all" id="btnmodificar">Modificar</button>
+          </div>
+        </section>
+      </div>
+
+      <!-- Sección MUESTRAS debajo -->
+      <section class="bg-white border border-blue-200 rounded-lg p-6 shadow-md overflow-y-auto mt-8">
+        <h2 class="text-center text-blue-700 font-bold text-lg mb-4">MUESTRAS</h2>
+        <table class="table-auto w-full bg-blue-50 border border-blue-200 rounded-lg">
+          <thead>
+            <tr class="bg-blue-100">
+              <th class="px-4 py-2 text-left text-blue-600">Fecha</th>
+              <th class="px-4 py-2 text-left text-blue-600">Descripción</th>
+              <th class="px-4 py-2 text-left text-blue-600">Tinción</th>
+              <th class="px-4 py-2 text-left text-blue-600">Tipo</th>
+            </tr>
+          </thead>
+          <tbody>
+      
+          </tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+</body>
+
+
+
+</html>
