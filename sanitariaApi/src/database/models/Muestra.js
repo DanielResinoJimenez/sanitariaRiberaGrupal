@@ -26,6 +26,15 @@ Model.init({
     tincion: {
         type: DataTypes.STRING,
         allowNull: false,
+    },
+    id_cassette:{
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: "cassette",
+            key: "id_cassette"
+        },
+        onDelete: "CASCADE"
     }
 },{
     sequelize,

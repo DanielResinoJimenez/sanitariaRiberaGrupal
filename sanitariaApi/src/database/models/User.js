@@ -25,10 +25,21 @@ Model.init({
     password_user: {
         type: DataTypes.STRING,
         allowNull: false,
+    },
+    rol: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: 'user',
+        validate: {
+            isIn: {
+                args: [['user', 'admin']],  // Solo estos valores son válidos
+                msg: "El rol debe ser 'user' o 'admin'"
+            }
+        }
     }
 },{
     sequelize,
-    modelName: "User",
+    modelName: "usuario",
     tableName: "usuario",
     timestamps: false
 })

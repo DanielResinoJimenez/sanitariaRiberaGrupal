@@ -1,5 +1,6 @@
 const userRouter = require("express").Router();
-const User = require("../database/models/User");
+const Muestra = require("../database/models/Muestra");
+const User = require("./../database/models/User")
 // const bcrypt = require("bcryptjs");
 // const { check, validationResult } = require("express-validator");
 // const moment = require("moment");
@@ -17,9 +18,10 @@ const User = require("../database/models/User");
 
 
 // Todos los usuario para probar
- userRouter.get("/allusers",  async (req, res) => {
+userRouter.get("/allusers",  async (req, res) => {
   const users = await User.findAll();
-  res.json(users);
+  res.json(users)
+  
 });
 
 

@@ -22,6 +22,6 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log("Servidor conectado al puerto "+PORT);
     sequelize
-    .sync({force: true })
+    .sync({force: false })
     .then(() => console.log("Sincronizado con la base de datos SanitariaRibera"))
 })
