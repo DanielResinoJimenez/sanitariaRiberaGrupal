@@ -7,57 +7,47 @@
     <link href="./css/output.css" rel="stylesheet">
     <link rel="stylesheet" href="./css/index.css">
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body class="bg_login flex flex-col items-center min-h-screen bg-gray-100">
     
     <!-- Header -->
     <header class="w-full bg-gray-10 p-4 text-center mt-3">
         <img src="./assets/images/logo.png" alt="" class="w-35 mx-auto">
-        <h2 class="text-2xl font-semibold">Sanitaria Ribera</h2>
-        <!-- Nav -->
-        <!-- <nav class="flex justify-center gap-5 mt-4 ">
-            <a href="#" class="link__hover text-blue-600 hover:text-blue-700 transition">Inicio</a>
-            <a href="#" class="link__hover text-blue-600 hover:text-blue-700 transition">Proyecto</a>
-            <a href="#" class="link__hover text-blue-600 hover:text-blue-700 transition">Laboratorio</a>
-            <a href="#" class="link__hover text-blue-600 hover:text-blue-700 transition">Autopsias</a>
-            <a href="#" class="link__hover text-blue-600 hover:text-blue-700 transition">Microscopio</a>
-            <a href="#" class="link__hover text-blue-600 hover:text-blue-700 transition">Jornadas</a>
-            <a href="#" class="link__hover text-blue-600 hover:text-blue-700 transition">Ejercicios</a>
-            <a href="#" class="link__hover text-blue-600 hover:text-blue-700 transition">Registro</a>
-        </nav> -->
+        <h1 class="mainTitle text-2xl font-semibold text-gray-900">Sanitaria Ribera</h1>
     </header>
 
     <!-- Main Container -->
-    <div class=" w-full max-w-md p-6 bg-gray-100 rounded-lg shadow-md m-6">
+    <div class=" w-full max-w-md p-6 rounded-lg shadow-md m-8 bg-gray-200">
         <!-- Form Login-->
-        <form id="loginForm" action="" method="POST" class="flex flex-col gap-2" novalidate>
-                <h1 class="text-md font-bold text-center my-2 text-gray-800">Accede a tu cuenta...</h1>
-                <input type="email" name="email" id="email" placeholder="Correo" required
-                    class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 my-3">
-                <input type="password" name="password" id="password" placeholder="Contraseña" required
-                    class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <label for="" class="text-right text-xs text-gray-500">8-16 caracteres, mayúsculas, minúsculas, números y símbolos.</label>
-                <a href="#" class="text-center text-sm my-3 text-blue-400">Olvidaste tu contraseña...</a>
-                <button type="submit" class="w-full bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-700 transition">Entrar</button>
-                <hr class="my-3 text-gray-400">
-                <label for="" class="text-center text-sm  text-gray-500">Si no tienes cuenta... <a href="" class="text-blue-400" id="registerLink">Registro</a></label>
+        <form id="loginForm" action="" method="POST" class="flex flex-col gap-2 " novalidate>
+            <div class="flex justify-between w-full">
+                <h1 class="text-md font-bold text-left pl-2 border-l-2 my-2 text-blue-500 mainTitle">Accede a tu cuenta!</h1>
+                <img src="./assets/images/logo.png" alt="" class="w-12 ">
+            </div>   
+            <input type="email" name="email" id="email" placeholder="Correo" required
+                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 my-3">
+            <input type="password" name="password" id="password" placeholder="Contraseña" required
+                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <label for="" class="text-right text-xs text-gray-500">8-16 caracteres, mayúsculas, minúsculas, números y símbolos.</label>
+            <a href="#" class="text-center text-sm my-3 text-blue-400" id="getPassword">Olvidaste tu contraseña...</a>
+            <button type="submit" class="w-full bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-700 transition">Entrar</button>
+            <hr class="my-3 text-gray-400">
+            <label for="" class="text-center text-sm  text-gray-500">Si no tienes cuenta... <a href="" class="text-blue-400" id="registerLink">Registro</a></label>
         </form>
 
         <!-- Form Register-->
         <form id="registerForm" action="" method="POST" class="hiddenForm flex flex-col gap-2" novalidate>
-            <h1 class="text-md font-bold text-center my-2 text-gray-800">Crear una cuenta...</h1>
+            <div class="flex justify-between w-full">
+                <h1 class="text-md font-bold text-left pl-2 border-l-2 my-2 text-blue-500 mainTitle">Crear una cuenta...</h1>
+                <img src="./assets/images/logo.png" alt="" class="w-12 ">
+            </div> 
             <!-- Name -->
             <input type="text" name="name" id="name" placeholder="Nombre" required
                 class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 my-1">
             <!-- LastName -->
             <input type="text" name="lastname" id="lastname" placeholder="Apellidos" required
                 class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 my-1">
-            <!-- Options
-            <select name="" id="" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 my-1">
-                <option value="0" class="">Centro</option>
-                <option value="1" class="">Administrador</option>
-                <option value="2" class="">Usuario</option>
-            </select> -->
             <!-- Email -->
             <input type="email" name="email" id="email" placeholder="Correo" required
                 class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 my-1">
@@ -71,8 +61,21 @@
             <button type="submit" class="w-full bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-700 transition my-3">Registro</button>
             <hr class="my-2 text-gray-400">
             <label for="" class="text-center text-sm  text-gray-500">Si ya te has registrado anteriormente... <a href="" class="text-blue-400" id="loginLink">Login</a></label>
-    </form>
+        </form>
 
+        <!-- Form Restart Password -->
+        <form id="passwordForm" action="" method="POST" class="hiddenForm flex flex-col gap-2" novalidate>
+            <div class="flex justify-between w-full">
+                <h1 class="text-md font-bold text-left pl-2 border-l-2 my-2 text-blue-500 mainTitle">Solicitar Contraseña...</h1>
+                <img src="./assets/images/logo.png" alt="" class="w-12 ">
+            </div> 
+            <!-- Email -->
+            <input type="email" name="email" id="email" placeholder="Correo" required
+                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 my-1">
+            <button type="submit" class="w-full bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-700 transition my-3">Solicitar Contraseña</button>
+            <label for="" class="text-center text-sm  text-gray-500">Si ya te has registrado anteriormente... <a href="" class="text-blue-400" id="loginLink">Volver a Login</a></label>
+        </form>
+     
     </div>
     <script src="./js/login.js"></script>
 </body>
