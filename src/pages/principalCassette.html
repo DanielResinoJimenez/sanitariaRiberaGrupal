@@ -109,7 +109,13 @@
       <div class="flex flex-wrap gap-8">
         <!-- Sección CASSETTES -->
         <section class="flex-1 bg-white border border-blue-200 rounded-lg p-6 shadow-md">
-          <h2 class="text-center text-blue-700 font-bold text-lg mb-4">CASSETTES</h2>
+          <div class="flex justify-between mb-4">
+            <h2 class="text-center text-blue-700 font-bold text-lg">CASSETTES</h2>
+            <div>
+              <button class="bg-green-400 text-white px-4 py-2 rounded-lg hover:bg-green-500 shadow-md transition-all" id="btnNuevo">Nuevo</button>
+              <button class="bg-red-400 text-white px-4 py-2 rounded-lg hover:bg-red-500 shadow-md transition-all" id="btnEliminar">Eliminar</button>
+            </div>
+          </div>
           <table class="table-auto w-full bg-blue-50 border border-blue-200 rounded-lg">
             <thead>
               <tr class="bg-blue-100">
@@ -125,9 +131,6 @@
 
         <!-- Sección DETALLE CASSETTE -->
         <section class="flex-1 bg-white border border-blue-200 rounded-lg p-6 shadow-md">
-          <div class="text-end">
-            <button class="bg-green-400 text-white px-4 py-2 rounded-lg hover:bg-green-500 shadow-md transition-all">Nuevo</button>
-          </div>
           <h2 class="text-center text-blue-700 font-bold text-lg mt-4">DETALLE CASSETTE</h2>
           <ul class="list-none mt-4 space-y-2">
             <li><span class="font-bold">Descripción:</span> <span id="cassette__descripcion">---</span></li>
@@ -136,10 +139,6 @@
             <li><span class="font-bold">Observaciones:</span> <span id="cassette__observaciones">---</span></li>
             <li><span class="font-bold">Código QR:</span> <span id="cassette__codigoqr">---</span></li>
           </ul>
-          <div class="flex justify-between mt-6">
-            <button class="bg-red-400 text-white px-4 py-2 rounded-lg hover:bg-red-500 shadow-md transition-all" id="btnborrar">Borrar</button>
-            <button class="bg-blue-400 text-white px-4 py-2 rounded-lg hover:bg-blue-500 shadow-md transition-all" id="btnmodificar">Modificar</button>
-          </div>
         </section>
       </div>
 
@@ -162,8 +161,51 @@
       </section>
     </main>
   </div>
+
+  <!-- Modal Nuevo/Modificar Cassette -->
+  <div id="modalCassette" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden">
+    <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+      <div class="mt-3 text-center">
+        <h3 class="text-lg leading-6 font-medium text-gray-900" id="modalTitle">Nuevo Cassette</h3>
+        <div class="mt-2">
+          <input type="date" id="modalFecha" placeholder="Fecha" class="w-full p-2 border rounded-md mb-2">
+          <input type="text" id="modalDescripcion" placeholder="Descripción" class="w-full p-2 border rounded-md mb-2">
+          <select id="modalOrgano" class="w-full p-2 border rounded-md mb-2">
+            <option disabled selected>Seleccionar un Órgano</option>
+            <option value="Encéfalo">Encéfalo</option>
+            <option value="Médula Espinal">Médula Espinal</option>
+            <option value="Nervio">Nervio</option>
+            <option value="Ganglio Nervioso">Ganglio Nervioso</option>
+            <!-- Agrega más opciones según sea necesario -->
+          </select>
+          <input type="text" id="modalCaracteristicas" placeholder="Características" class="w-full p-2 border rounded-md mb-2">
+          <input type="text" id="modalObservaciones" placeholder="Observaciones" class="w-full p-2 border rounded-md mb-2">
+        </div>
+        <div class="items-center px-4 py-3">
+          <button id="modalSave" class="px-4 py-2 bg-blue-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-blue-600">Guardar</button>
+          <button id="modalClose" class="px-4 py-2 bg-gray-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-gray-600 mt-2">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Borrar Cassette -->
+  <div id="modalBorrar" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden">
+    <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+      <div class="mt-3 text-center">
+        <h3 class="text-lg leading-6 font-medium text-gray-900">Borrar Cassette</h3>
+        <div class="mt-2">
+          <input type="number" id="modalBorrarIndex" placeholder="Índice del Cassette" class="w-full p-2 border rounded-md mb-2">
+        </div>
+        <div class="items-center px-4 py-3">
+          <button id="modalBorrarSave" class="px-4 py-2 bg-red-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-red-600">Borrar</button>
+          <button id="modalBorrarClose" class="px-4 py-2 bg-gray-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-gray-600 mt-2">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script -->
+  <script src="../js/principalCassette.js"></script>
 </body>
-
-
-
 </html>
