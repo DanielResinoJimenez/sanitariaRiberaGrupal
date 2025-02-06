@@ -5,8 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sanitaria Ribera</title>
     <!-- cdn de Tailwind -->
-     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
-
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <!-- <style>
+      .modal-open {
+        overflow: hidden;
+      }
+      .modal {
+        background: rgba(0, 0, 0, 0.5);
+      }
+    </style> -->
 </head>
 <body class="bg-blue-100 min-h-screen">
   <div class="container mx-auto max-w-[1400px] p-8">
@@ -92,13 +99,13 @@
         <!-- Fecha 1 -->
         <div class="flex-1 min-w-[200px]">
           <label for="fecha1" class="block text-sm font-semibold mb-1">Fecha</label>
-          <input type="date" id="fecha1" class="form-input p-2 rounded-md border-gray-300 bg-white shadow-sm focus:ring-blue-300 focus:border-blue-500 text-black">
+          <input type="date" id="fechaInicioInput" class="form-input p-2 rounded-md border-gray-300 bg-white shadow-sm focus:ring-blue-300 focus:border-blue-500 text-black">
         </div>
 
         <!-- Fecha 2 -->
         <div class="flex-1 min-w-[200px]">
           <label for="fecha2" class="block text-sm font-semibold mb-1">Fecha</label>
-          <input type="date" id="fecha2" class="form-input p-2 rounded-md border-gray-300 bg-white shadow-sm focus:ring-blue-300 focus:border-blue-500 text-black">
+          <input type="date" id="fechaFinInput" class="form-input p-2 rounded-md border-gray-300 bg-white shadow-sm focus:ring-blue-300 focus:border-blue-500 text-black">
         </div>
       </div>
     </div>
@@ -130,8 +137,9 @@
 
         <!-- Sección DETALLE CASSETTE -->
         <section class="flex-1 bg-white border border-blue-200 rounded-lg p-6 shadow-md">
-          <div class="flex justify-end">
+          <div class="flex justify-end space-x-4">
             <button class="bg-red-400 text-white px-4 py-2 rounded-lg hover:bg-red-500 shadow-md transition-all" id="btnBorrarDetalle">Borrar</button>
+            <button class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 shadow-md transition-all" id="btnModificarDetalle">Modificar</button>
           </div>
           <h2 class="text-center text-blue-700 font-bold text-lg mt-4">DETALLE CASSETTE</h2>
           <ul class="list-none mt-4 space-y-2">
@@ -164,7 +172,7 @@
   </div>
 
   <!-- Modal Nuevo/Modificar Cassette -->
-  <div id="modalCassette" class="fixed inset-0 overflow-y-auto h-full w-full hidden">
+  <div id="modalCassette" class="fixed inset-0 overflow-y-auto h-full w-full hidden modal">
     <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
       <div class="mt-3 text-center">
         <h3 class="text-lg leading-6 font-medium text-gray-900" id="modalTitle">Nuevo Cassette</h3>
@@ -246,17 +254,100 @@
     </div>
   </div>
 
-  <!-- Modal Borrar Cassette -->
-  <div id="modalBorrar" class="fixed inset-0 overflow-y-auto h-full w-full hidden">
+  <!-- Modal para modificar cassette -->
+  <div id="modalModificarCassette" class="fixed inset-0 overflow-y-auto h-full w-full hidden modal">
     <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
       <div class="mt-3 text-center">
-        <h3 class="text-lg leading-6 font-medium text-gray-900">Borrar Cassette</h3>
+        <h3 class="text-lg leading-6 font-medium text-gray-900" id="modalModificarTitle">Modificar Cassette</h3>
         <div class="mt-2">
-          <input type="number" id="modalBorrarIndex" placeholder="Índice del Cassette" class="w-full p-2 border rounded-md mb-2">
+          <input type="date" id="modalModificarFecha" placeholder="Fecha" class="w-full p-2 border rounded-md mb-2">
+          <input type="text" id="modalModificarDescripcion" placeholder="Descripción" class="w-full p-2 border rounded-md mb-2">
+          <select id="modalModificarOrgano" class="w-full p-2 border rounded-md mb-2">
+            <option disabled selected>Seleccionar un Órgano</option>
+            <optgroup label="Sistema Nervioso">
+              <option>Encéfalo</option>
+              <option>Médula Espinal</option>
+              <option>Nervio</option>
+              <option>Ganglio Nervioso</option>
+            </optgroup>
+
+            <optgroup label="Tegumento">
+              <option>Piel</option>
+              <option>Uña</option>
+              <option>Pelo</option>
+            </optgroup>
+
+            <optgroup label="Cardiovascular">
+              <option>Corazón</option>
+              <option>Venas</option>
+              <option>Arteria</option>
+            </optgroup>
+
+            <optgroup label="Linfático">
+              <option>Ganglio Linfático</option>
+              <option>Timo</option>
+              <option>Bazo</option>
+            </optgroup>
+
+            <optgroup label="Sistema Digestivo">
+              <option>Lengua</option>
+              <option>Esófago</option>
+              <option>Estómago</option>
+              <option>Intestino Delgado</option>
+              <option>Intestino Grueso</option>
+              <option>Diente</option>
+              <option>Glándula Salivar</option>
+              <option>Páncrea</option>
+              <option>Hígado</option>
+            </optgroup>
+
+            <optgroup label="Aparato Excretor">
+              <option>Riñón</option>
+              <option>Vejiga</option>
+            </optgroup>
+
+            <optgroup label="Respiratorio">
+              <option>Tráquea</option>
+              <option>Bronquios</option>
+              <option>Tejido Respiratorio</option>
+            </optgroup>
+
+            <optgroup label="Endocrino">
+              <option>Tiroides</option>
+              <option>Parótidas</option>
+              <option>Suprarrenales</option>
+              <option>Ovario</option>
+              <option>Testículo</option>
+            </optgroup>
+
+            <optgroup label="Locomotor">
+              <option>Hueso</option>
+              <option>Musculo Esquelético</option>
+            </optgroup>
+            <option>Otros</option>
+          </select>
+          <input type="text" id="modalModificarCaracteristicas" placeholder="Características" class="w-full p-2 border rounded-md mb-2">
+          <input type="text" id="modalModificarObservaciones" placeholder="Observaciones" class="w-full p-2 border rounded-md mb-2">
         </div>
         <div class="items-center px-4 py-3">
-          <button id="modalBorrarSave" class="px-4 py-2 bg-red-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-red-600">Borrar</button>
-          <button id="modalBorrarClose" class="px-4 py-2 bg-gray-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-gray-600 mt-2">Cancelar</button>
+          <button id="modalModificarSave" class="px-4 py-2 bg-yellow-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-yellow-600">Modificar</button>
+          <button id="modalModificarClose" class="px-4 py-2 bg-gray-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-gray-600 mt-2">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Confirmación Borrar Cassette -->
+  <div id="modalConfirmarBorrar" class="fixed inset-0 overflow-y-auto h-full w-full hidden modal">
+    <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+      <div class="mt-3 text-center">
+        <button id="modalConfirmarBorrarClose" class="absolute top-0 right-0 mt-2 mr-2 text-gray-500 hover:text-gray-700">&times;</button>
+        <h3 class="text-lg leading-6 font-medium text-gray-900">Confirmar Eliminación</h3>
+        <div class="mt-2">
+          <p>¿Desea eliminar el cassette? Al eliminar el cassette también se eliminarán todas sus muestras.</p>
+        </div>
+        <div class="items-center px-4 py-3">
+          <button id="modalConfirmarBorrarEliminar" class="px-4 py-2 bg-red-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-red-600">Eliminar</button>
         </div>
       </div>
     </div>
