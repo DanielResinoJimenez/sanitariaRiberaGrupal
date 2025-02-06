@@ -2,7 +2,7 @@ const sequelize = require("../db");
 
 const { Model, DataTypes } = require("sequelize");
 
-class User extends Model {}
+class Muestra extends Model {}
 
 Model.init({
     id_muestra: {
@@ -32,3 +32,5 @@ Model.init({
     modelName: "tincion",
     timestamps: false
 })
+
+module.exports = Muestra;
