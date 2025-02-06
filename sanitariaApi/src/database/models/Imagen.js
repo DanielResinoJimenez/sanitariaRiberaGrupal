@@ -17,6 +17,7 @@ Imagen.init({
 }, {
     sequelize,
     timestamps: false,
+    tableName: "imagen",
     modelName: "imagen"
 })
 

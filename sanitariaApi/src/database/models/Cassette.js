@@ -29,10 +29,19 @@ Cassette.init({
         type: DataTypes.STRING,
         allowNull: false,
     },
-
+    userId: {  // Clave foránea que debe coincidir con el id_user de User
+        type: DataTypes.INTEGER,
+        references: {
+            model: "usuario",  // Debe coincidir con el nombre de la tabla de User
+            key: "id"
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL'
+    }
 }, {
     sequelize,
     modelName: "cassette",
+    tableName: "cassette",
     timestamps: false
 })
 

@@ -1,10 +1,10 @@
 const apirouter = require("express").Router();
 // const { checkToken } = require("./middlewares");
 
-const clientesrouter = require("./clienteRouter");
-const vehiculosrouter = require("./vehiculoRouter");
-const fabricantesrouter = require("./fabricanteRouter");
-const comprasrouter = require("./compraRouter");
+// const clientesrouter = require("./clienteRouter");
+// const vehiculosrouter = require("./vehiculoRouter");
+// const fabricantesrouter = require("./fabricanteRouter");
+// const comprasrouter = require("./compraRouter");
 const userrouter = require("./userRouter");
 
 // apirouter.use("/clientes", clientesrouter);

@@ -29,7 +29,8 @@ Model.init({
     }
 },{
     sequelize,
-    modelName: "tincion",
+    modelName: "muestra",
+    tableName: "muestra",
     timestamps: false
 })
 
