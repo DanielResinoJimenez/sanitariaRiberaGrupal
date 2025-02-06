@@ -1,8 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const btnNuevo = document.getElementById('btnNuevo');
-    const btnEliminar = document.getElementById('btnEliminar');
+    const btnBorrarDetalle = document.getElementById('btnBorrarDetalle');
     const modalCassette = document.getElementById('modalCassette');
-    const modalBorrar = document.getElementById('modalBorrar');
     const modalTitle = document.getElementById('modalTitle');
     const modalFecha = document.getElementById('modalFecha');
     const modalDescripcion = document.getElementById('modalDescripcion');
@@ -11,21 +10,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalObservaciones = document.getElementById('modalObservaciones');
     const modalSave = document.getElementById('modalSave');
     const modalClose = document.getElementById('modalClose');
-    const modalBorrarIndex = document.getElementById('modalBorrarIndex');
-    const modalBorrarSave = document.getElementById('modalBorrarSave');
-    const modalBorrarClose = document.getElementById('modalBorrarClose');
   
     const descripcion = document.getElementById('cassette__descripcion');
     const organo = document.getElementById('cassette__organo');
     const caracteristicas = document.getElementById('cassette__caracteristicas');
     const observaciones = document.getElementById('cassette__observaciones');
-    const codigoQR = document.getElementById('cassette__codigoqr');
   
     let cassettes = [];
-    let editIndex = -1;
+    let selectedIndex = -1;
   
     btnNuevo.addEventListener('click', () => {
-      editIndex = -1;
+      selectedIndex = -1;
       modalTitle.textContent = 'Nuevo Cassette';
       modalFecha.value = '';
       modalDescripcion.value = '';
@@ -35,8 +30,14 @@ document.addEventListener('DOMContentLoaded', () => {
       modalCassette.classList.remove('hidden');
     });
   
-    btnEliminar.addEventListener('click', () => {
-      modalBorrar.classList.remove('hidden');
+    btnBorrarDetalle.addEventListener('click', () => {
+      if (selectedIndex >= 0 && selectedIndex < cassettes.length) {
+        cassettes.splice(selectedIndex, 1);
+        limpiarDetalles();
+        actualizarTabla();
+      } else {
+        alert('No hay cassette seleccionado para borrar');
+      }
     });
   
     modalSave.addEventListener('click', () => {
@@ -48,10 +49,10 @@ document.addEventListener('DOMContentLoaded', () => {
         observaciones: modalObservaciones.value
       };
   
-      if (editIndex === -1) {
+      if (selectedIndex === -1) {
         cassettes.push(nuevoCassette);
       } else {
-        cassettes[editIndex] = nuevoCassette;
+        cassettes[selectedIndex] = nuevoCassette;
       }
   
       modalCassette.classList.add('hidden');
@@ -60,21 +61,6 @@ document.addEventListener('DOMContentLoaded', () => {
   
     modalClose.addEventListener('click', () => {
       modalCassette.classList.add('hidden');
-    });
-  
-    modalBorrarSave.addEventListener('click', () => {
-      const index = modalBorrarIndex.value;
-      if (index >= 0 && index < cassettes.length) {
-        cassettes.splice(index, 1);
-        modalBorrar.classList.add('hidden');
-        actualizarTabla();
-      } else {
-        alert('Índice inválido');
-      }
-    });
-  
-    modalBorrarClose.addEventListener('click', () => {
-      modalBorrar.classList.add('hidden');
     });
   
     function actualizarTabla() {
@@ -92,9 +78,17 @@ document.addEventListener('DOMContentLoaded', () => {
           organo.textContent = cassette.organo;
           caracteristicas.textContent = cassette.caracteristicas;
           observaciones.textContent = cassette.observaciones;
-          codigoQR.textContent = cassette.codigoQR;
+          selectedIndex = index;
         });
         tbody.appendChild(row);
       });
+    }
+  
+    function limpiarDetalles() {
+      descripcion.textContent = '---';
+      organo.textContent = '---';
+      caracteristicas.textContent = '---';
+      observaciones.textContent = '---';
+      selectedIndex = -1;
     }
   });
