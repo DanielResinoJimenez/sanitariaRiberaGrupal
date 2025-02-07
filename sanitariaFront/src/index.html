@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | Ribera Sanitaria</title>
+    <title>Ribera Sanitaria</title>
     <link href="./css/output.css" rel="stylesheet">
     <link rel="stylesheet" href="./css/index.css">
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="./assets/images/logo.ico" type="image/x-icon">
 </head>
 <body class="bg_login flex flex-col items-center min-h-screen bg-gray-100">
     
@@ -19,20 +20,27 @@
 
     <!-- Main Container -->
     <div class=" w-full max-w-md p-6 rounded-lg shadow-md m-8 bg-gray-200">
+
         <!-- Form Login-->
         <form id="loginForm" action="" method="POST" class="flex flex-col gap-2 " novalidate>
             <div class="flex justify-between w-full">
                 <h1 class="text-md font-bold text-left pl-2 border-l-2 my-2 text-blue-500 mainTitle">Accede a tu cuenta!</h1>
                 <img src="./assets/images/logo.png" alt="" class="w-12 ">
             </div>   
-            <input type="email" name="email" id="email" placeholder="Correo" required
-                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 my-3">
-            <input type="password" name="password" id="password" placeholder="Contraseña" required
+            <!-- Email -->
+            <input type="email" name="email" id="emailLogin" placeholder="Correo" required
+                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mt-3">
+            <p id="errorEmailLogin" class="m-0 p-0 text-right text-red-400 text-xs pr-2"></p>
+            <!-- Password -->
+            <input type="password" name="password" id="passwordLogin" placeholder="Contraseña" required minlength="8" maxlength="16" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,16}$"
                 class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-            <label for="" class="text-right text-xs text-gray-500">8-16 caracteres, mayúsculas, minúsculas, números y símbolos.</label>
+            <p id="errorPasswordLogin" class="m-0 p-0 text-right text-red-400 text-xs pr-2"></p>
+            <!-- Forget Password -->
             <a href="#" class="text-center text-sm my-3 text-blue-400" id="getPassword">Olvidaste tu contraseña...</a>
-            <button type="submit" class="w-full bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-700 transition">Entrar</button>
+            <!-- Login -->
+            <button type="submit" class="w-full bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-700 transition" id="loginButton">Entrar</button>
             <hr class="my-3 text-gray-400">
+            <!-- Register Link -->
             <label for="" class="text-center text-sm  text-gray-500">Si no tienes cuenta... <a href="" class="text-blue-400" id="registerLink">Registro</a></label>
         </form>
 
@@ -44,22 +52,29 @@
             </div> 
             <!-- Name -->
             <input type="text" name="name" id="name" placeholder="Nombre" required
-                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 my-1">
+                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <p id="errorName" class="m-0 p-0 text-right text-red-400 text-xs pr-2"></p>
             <!-- LastName -->
             <input type="text" name="lastname" id="lastname" placeholder="Apellidos" required
-                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 my-1">
+                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <p id="errorLastname" class="m-0 p-0 text-right text-red-400 text-xs pr-2"></p>
             <!-- Email -->
-            <input type="email" name="email" id="email" placeholder="Correo" required
-                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 my-1">
+            <input type="email" name="email" id="emailRegister" placeholder="Correo" required
+                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <p id="errorEmailRegister" class="m-0 p-0 text-right text-red-400 text-xs pr-2"></p>
             <!-- Password -->
-            <input type="password" name="password" id="password" placeholder="Contraseña" required
-                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 my-1">
-            <!-- Repeat Password -->
-            <input type="password" name="passwordRepeat" id="passwordRepeat" placeholder="Repetir Contraseña" required
-                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mt-1">
+            <input type="password" name="password" id="passwordRegister" placeholder="Contraseña" required
+                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
             <label for="" class="text-right text-xs text-gray-500">8-16 caracteres, mayúsculas, minúsculas, números y símbolos.</label>
+            <p id="errorPasswordRegister" class="m-0 p-0 text-right text-red-400 text-xs pr-2"></p>
+            <!-- Repeat Password -->
+            <input type="password" name="password2" id="password2Register" placeholder="Repetir Contraseña" required
+                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <p id="errorPassword2Register" class="m-0 p-0 text-right text-red-400 text-xs pr-2"></p>
+            <!-- Register -->
             <button type="submit" class="w-full bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-700 transition my-3">Registro</button>
             <hr class="my-2 text-gray-400">
+            <!-- Login link -->
             <label for="" class="text-center text-sm  text-gray-500">Si ya te has registrado anteriormente... <a href="" class="text-blue-400" id="loginLink">Login</a></label>
         </form>
 
