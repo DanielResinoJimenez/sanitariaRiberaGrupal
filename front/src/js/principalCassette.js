@@ -158,6 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
     caracteristicas.textContent = cassette.caracteristicas;
     observaciones.textContent = cassette.observaciones;
     selectedIndex = index;
+    actualizarTablaMuestras();
   }
 
   function limpiarDetalles() {
@@ -167,6 +168,74 @@ document.addEventListener('DOMContentLoaded', () => {
     observaciones.textContent = '---';
     selectedIndex = -1;
   }
+
+  // Función para actualizar la tabla de muestras
+  function actualizarTablaMuestras() {
+    const tbody = document.querySelector('section:nth-child(2) tbody');
+    tbody.innerHTML = '';
+    if (selectedIndex >= 0 && selectedIndex < cassettes.length) {
+      const cassette = cassettes[selectedIndex];
+      if (cassette.muestras) {
+        cassette.muestras.forEach((muestra, index) => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td class="px-4 py-2">${muestra.fecha}</td>
+            <td class="px-4 py-2">${muestra.descripcion}</td>
+            <td class="px-4 py-2">${muestra.tincion}</td>
+            <td class="px-4 py-2">${muestra.tipo}</td>
+          `;
+          tbody.appendChild(row);
+        });
+      }
+    }
+  }
+
+  // Modal Nueva Muestra
+  const btnNuevaMuestra = document.getElementById('btnNuevaMuestra');
+  const modalNuevaMuestra = document.getElementById('modalNuevaMuestra');
+  const modalMuestraSave = document.getElementById('modalMuestraSave');
+  const modalMuestraClose = document.getElementById('modalMuestraClose');
+
+  btnNuevaMuestra.addEventListener('click', () => {
+    if (selectedIndex >= 0 && selectedIndex < cassettes.length) {
+      modalNuevaMuestra.classList.remove('hidden');
+      document.body.classList.add('modal-open');
+    } else {
+      alert('No hay cassette seleccionado para agregar una muestra');
+    }
+  });
+
+  modalMuestraClose.addEventListener('click', () => {
+    modalNuevaMuestra.classList.add('hidden');
+    document.body.classList.remove('modal-open');
+  });
+
+  modalMuestraSave.addEventListener('click', () => {
+    const nuevaMuestra = {
+      fecha: document.getElementById('modalMuestraFecha').value,
+      descripcion: document.getElementById('modalMuestraDescripcion').value,
+      tincion: document.getElementById('modalMuestraTincion').value,
+      observaciones: document.getElementById('modalMuestraObservaciones').value,
+      imagen: document.getElementById('modalMuestraImagen').files[0] // Aquí puedes manejar la imagen como prefieras
+    };
+
+    if (selectedIndex >= 0 && selectedIndex < cassettes.length) {
+      const cassette = cassettes[selectedIndex];
+      if (!cassette.muestras) {
+        cassette.muestras = [];
+      }
+      cassette.muestras.push(nuevaMuestra);
+      localStorage.setItem('cassettes', JSON.stringify(cassettes));
+      modalNuevaMuestra.classList.add('hidden');
+      document.body.classList.remove('modal-open');
+      actualizarTablaMuestras();
+    }
+  });
+
+  // Función para que al crear un nuevo cassette la fecha no pueda ser anterior al día de hoy
+  const fechaInput = document.getElementById('modalFecha');
+  const hoy = new Date().toISOString().split('T')[0];
+  fechaInput.setAttribute('min', hoy);
 
   // Mostrar cassettes inicialmente
   actualizarTabla();

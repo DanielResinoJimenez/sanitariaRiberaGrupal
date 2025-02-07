@@ -5,15 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sanitaria Ribera</title>
     <!-- cdn de Tailwind -->
-    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
-    <!-- <style>
-      .modal-open {
-        overflow: hidden;
-      }
-      .modal {
-        background: rgba(0, 0, 0, 0.5);
-      }
-    </style> -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+
 </head>
 <body class="bg-blue-100 min-h-screen">
   <div class="container mx-auto max-w-[1400px] p-8">
@@ -93,7 +87,7 @@
         <!-- Código QR -->
         <div class="flex-1 min-w-[150px]">
           <label for="qr" class="block text-sm font-semibold mb-1">Escanear QR</label>
-          <input type="file" id="qr" class="form-input p-2 rounded-md border-gray-300 bg-white shadow-sm focus:ring-blue-300 focus:border-blue-500 text-black" placeholder="Escanear QR">
+          <input type="" id="qr" class="form-input p-2 rounded-md border-gray-300 bg-white shadow-sm focus:ring-blue-300 focus:border-blue-500 text-black" placeholder="Escanear QR">
         </div>
 
         <!-- Fecha 1 -->
@@ -152,24 +146,27 @@
       </div>
 
       <!-- Sección MUESTRAS debajo -->
-      <section class="bg-white border border-blue-200 rounded-lg p-6 shadow-md overflow-y-auto mt-8">
-        <h2 class="text-center text-blue-700 font-bold text-lg mb-4">MUESTRAS</h2>
-        <table class="table-auto w-full bg-blue-50 border border-blue-200 rounded-lg">
-          <thead>
-            <tr class="bg-blue-100">
-              <th class="px-4 py-2 text-left text-blue-600">Fecha</th>
-              <th class="px-4 py-2 text-left text-blue-600">Descripción</th>
-              <th class="px-4 py-2 text-left text-blue-600">Tinción</th>
-              <th class="px-4 py-2 text-left text-blue-600">Tipo</th>
-            </tr>
-          </thead>
-          <tbody>
-      
-          </tbody>
-        </table>
-      </section>
+<section class="bg-white border border-blue-200 rounded-lg p-6 shadow-md overflow-y-auto mt-8">
+  <div class="flex justify-between mb-4">
+    <h2 class="text-center text-blue-700 font-bold text-lg">MUESTRAS</h2>
+    <button class="bg-green-400 text-white px-4 py-2 rounded-lg hover:bg-green-500 shadow-md transition-all" id="btnNuevaMuestra">Nueva Muestra</button>
+  </div>
+  <table class="table-auto w-full bg-blue-50 border border-blue-200 rounded-lg">
+    <thead>
+      <tr class="bg-blue-100">
+        <th class="px-4 py-2 text-left text-blue-600">Fecha</th>
+        <th class="px-4 py-2 text-left text-blue-600">Descripción</th>
+        <th class="px-4 py-2 text-left text-blue-600">Tinción</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+</section>
     </main>
   </div>
+
+  <!---------------- MODALES -------------------->
 
   <!-- Modal Nuevo/Modificar Cassette -->
   <div id="modalCassette" class="fixed inset-0 overflow-y-auto h-full w-full hidden modal">
@@ -260,7 +257,7 @@
       <div class="mt-3 text-center">
         <h3 class="text-lg leading-6 font-medium text-gray-900" id="modalModificarTitle">Modificar Cassette</h3>
         <div class="mt-2">
-          <input type="date" id="modalModificarFecha" placeholder="Fecha" class="w-full p-2 border rounded-md mb-2">
+          <input type="date" disabled id="modalModificarFecha" placeholder="Fecha" class="w-full p-2 border rounded-md mb-2">
           <input type="text" id="modalModificarDescripcion" placeholder="Descripción" class="w-full p-2 border rounded-md mb-2">
           <select id="modalModificarOrgano" class="w-full p-2 border rounded-md mb-2">
             <option disabled selected>Seleccionar un Órgano</option>
@@ -352,6 +349,34 @@
       </div>
     </div>
   </div>
+
+  
+<!-- Modal Nueva Muestra -->
+<div id="modalNuevaMuestra" class="fixed inset-0 overflow-y-auto h-full w-full hidden modal">
+  <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+    <div class="mt-3 text-center">
+      <h3 class="text-lg leading-6 font-medium text-gray-900">Nueva Muestra</h3>
+      <div class="mt-2">
+        <input type="date" id="modalMuestraFecha" placeholder="Fecha" class="w-full p-2 border rounded-md mb-2">
+        <input type="text" id="modalMuestraDescripcion" placeholder="Descripción" class="w-full p-2 border rounded-md mb-2">
+        <select id="modalMuestraTincion" class="w-full p-2 border rounded-md mb-2">
+          <option disabled selected>Seleccionar Tinción</option>
+          <option>Gram</option>
+          <option>Grom</option>
+          <option>Grum</option>
+          <option>Grim</option>
+        </select>
+        <input type="text" id="modalMuestraObservaciones" placeholder="Observaciones" class="w-full p-2 border rounded-md mb-2">
+        <input type="file" id="modalMuestraImagen" class="w-full p-2 border rounded-md mb-2">
+      </div>
+      <div class="items-center px-4 py-3">
+        <button id="modalMuestraSave" class="px-4 py-2 bg-blue-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-blue-600">Guardar</button>
+        <button id="modalMuestraClose" class="px-4 py-2 bg-gray-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-gray-600 mt-2">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+  
 
   <!-- Script -->
   <script src="../js/principalCassette.js"></script>
