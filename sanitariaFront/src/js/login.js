@@ -5,6 +5,8 @@ const loginButton = document.getElementById('loginButton');
 const registerLink = document.getElementById('registerLink');
 const passwordForm = document.getElementById('passwordForm');
 const getPassword = document.getElementById('getPassword');
+const buttonPasswordLogin = document.getElementById('showPasswordLogin');
+const buttonPasswordRegister = document.getElementById('showPasswordRegister');
 
 // Show login or register form
 const showForm = (event) => {
@@ -25,6 +27,26 @@ const showRestartForm = (event) => {
     registerForm.classList.add("hiddenForm");
     passwordForm.classList.remove("hiddenForm");
 }
+
+// View password LOGIN
+const showPasswordLogin = () => {
+    // Get values
+    let passwordLogin = document.getElementById('passwordLogin');
+    passwordLogin.type = passwordLogin.type === "password" ? "text" : "password";
+};
+buttonPasswordLogin.addEventListener("click", showPasswordLogin);
+
+// View password REGISTER
+const showPasswordRegister = () => {
+    // Get values
+    let passwordRegister = document.getElementById('passwordRegister');
+    let password2Register = document.getElementById('password2Register');
+    passwordRegister.type = passwordRegister.type === "password" ? "text" : "password";
+    password2Register.type = password2Register.type === "password" ? "text" : "password";
+};
+buttonPasswordRegister.addEventListener("click", showPasswordRegister);
+
+
 
 // Validate formLogin
 const validateLogin = (event) => {
@@ -142,7 +164,26 @@ const validateRegister = (event) => {
 }
 
 
+// Create new Password
+const newPassword = (event) => {
+    event.preventDefault();
 
+    const email = document.getElementById("email").value;
+
+    fetch("https://tu-servidor.com/api/reset-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert("Se ha enviado una nueva contraseña a tu correo electrónico");
+        } else {
+            alert("Hubo un error: " + data.message);
+        }
+    })
+}
 
 
 
