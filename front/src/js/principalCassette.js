@@ -24,6 +24,8 @@
   const modalConfirmarBorrarClose = document.getElementById('modalConfirmarBorrarClose');
   const modalConfirmarBorrarEliminar = document.getElementById('modalConfirmarBorrarEliminar');
   const organos = document.getElementById('organos');
+  const fechaInicioInput = document.getElementById('fechaInicioInput');
+  const fechaFinInput = document.getElementById('fechaFinInput');
 
   const descripcion = document.getElementById('cassette__descripcion');
   const organo = document.getElementById('cassette__organo');
@@ -40,6 +42,10 @@
 
   let cassettes = [];
   let selectedIndex = -1;
+  let fecha_inicio = '';
+  let fecha_fin = '';
+  let filtered_cassettes;
+
 
   const actualizarTabla = (cassetes_to_show) => {
     const tbody = document.querySelector('section:nth-child(1) tbody');
@@ -251,6 +257,24 @@ const verDetallesMuestra = (index) => {
       return;
     }
     const filtered_cassettes = cassettes.filter(cassette => cassette.organo === organo);
+    actualizarTabla(filtered_cassettes);
+  });
+  fechaInicioInput.addEventListener('change', () => {
+    fecha_inicio = fechaInicioInput.value;
+    if (fecha_fin === '') {
+      filtered_cassettes = cassettes.filter(cassette => cassette.fecha == fecha_inicio);
+    }else{
+      filtered_cassettes = cassettes.filter(cassette => cassette.fecha >= fecha_inicio && cassette.fecha <= fecha_fin);
+    }
+    actualizarTabla(filtered_cassettes);
+  });
+  fechaFinInput.addEventListener('change', () => {
+    fecha_fin = fechaFinInput.value;
+    if (fecha_inicio === '') {
+      actualizarTabla(cassettes);
+      return;
+    }
+    filtered_cassettes = cassettes.filter(cassette => cassette.fecha >= fecha_inicio && cassette.fecha <= fecha_fin);
     actualizarTabla(filtered_cassettes);
   });
 
