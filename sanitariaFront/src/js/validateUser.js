@@ -1,3 +1,5 @@
+
+
 // Routes
 const getUserRoute = "http://localhost:3000/sanitaria/usuarios/allusers";
 const createUserRoute = "http://localhost:3000/sanitaria/usuarios/register";
@@ -9,11 +11,11 @@ let arrayUsers = [];
 const getUser = async () => {
     const response = await fetch(getUserRoute);
     const users = await response.json();
-    
-    console.log(users);
+    arrayUsers.push(users);
 }
 
-// Load data
+
+// Load data user
 const loadData = async () => {
     await getUser();
 }

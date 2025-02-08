@@ -1,34 +1,35 @@
 const loginButton = document.getElementById('loginButton');
+const registerButton = document.getElementById('registerButton');
 
 // Validate formLogin
 const validateLogin = (event) => {
     event.preventDefault();
     let valido = true;
     // Get values
-    let email = document.getElementById('emailLogin').value;
+    let email = document.getElementById('emailLogin');
     let errorEmail = document.getElementById('errorEmailLogin');
-    let password = document.getElementById('passwordLogin').value;
+    let password = document.getElementById('passwordLogin');
     let errorPassword = document.getElementById('errorPasswordLogin');
     
     // Validate email
     if(email.validity.valueMissing){
-        errorEmail.textContent = "Debes de introducir un valor";
+        errorEmail.textContent = "*Debes de introducir un valor";
         valido = false;
     }else if(email.validity.typeMismatch){
-        errorEmail.textContent = "Formato Incorrecto"
+        errorEmail.textContent = "*Formato Incorrecto"
         valido = false;
     }else{
         errorEmail.textContent = "";
     }
     // Validate password
     if (password.validity.valueMissing) {
-        errorPassword.textContent = "Debes introducir un valor";
+        errorPassword.textContent = "*Debes introducir un valor";
         valido = false;
     } else if (password.validity.tooShort || password.validity.tooLong) {
-        errorPassword.textContent = "La contraseña debe tener entre 8 y 16 caracteres";
+        errorPassword.textContent = "*La contraseña debe tener entre 8 y 16 caracteres";
         valido = false;
     } else if (password.validity.patternMismatch) {
-        errorPassword.textContent = "La contraseña debe incluir mayúsculas, minúsculas, números y símbolos";
+        errorPassword.textContent = "*La contraseña debe incluir mayúsculas, minúsculas, números y símbolos";
         valido = false;
     } else {
         errorPassword.textContent = "";
@@ -45,20 +46,20 @@ const validateRegister = (event) => {
     event.preventDefault();
     let valido = true;
     // Get values
-    let name = document.getElementById('name').value;
+    let name = document.getElementById('name');
     let errorName = document.getElementById('errorName');
-    let lastName = document.getElementById('lastName').value;
+    let lastName = document.getElementById('lastName');
     let errorLastName = document.getElementById('errorLastName');
-    let email = document.getElementById('emailRegister').value;
+    let email = document.getElementById('emailRegister');
     let errorEmail = document.getElementById('errorEmailRegister');
-    let password = document.getElementById('passwordRegister').value;
+    let password = document.getElementById('passwordRegister');
     let errorPassword = document.getElementById('errorPasswordRegister');
-    let password2 = document.getElementById('password2Register').value;
+    let password2 = document.getElementById('password2Register');
     let errorPassword2 = document.getElementById('errorPassword2Register');
 
     // Validate name
     if(name.validity.valueMissing){
-        errorName.textContent = "Debes de introducir un valor";
+        errorName.textContent = "*Campo Obligatorio";
         valido = false;
     }else{
         errorName.textContent = "";
@@ -66,7 +67,7 @@ const validateRegister = (event) => {
 
     // Validate lastName
     if(lastName.validity.valueMissing){
-        errorLastName.textContent = "Debes de introducir un valor";
+        errorLastName.textContent = "*Campo Obligatorio";
         valido = false;
     }else{  
         errorLastName.textContent = "";
@@ -74,10 +75,10 @@ const validateRegister = (event) => {
 
     // Validate email
     if(email.validity.valueMissing){
-        errorEmail.textContent = "Debes de introducir un valor";
+        errorEmail.textContent = "*Campo Obligatorio";
         valido = false;
     }else if(email.validity.typeMismatch){
-        errorEmail.textContent = "Formato Incorrecto"
+        errorEmail.textContent = "*Formato Incorrecto"
         valido = false;
     }else{
         errorEmail.textContent = "";
@@ -85,27 +86,19 @@ const validateRegister = (event) => {
 
     // Validate password
     if (password.validity.valueMissing) {
-        errorPassword.textContent = "Debes introducir un valor";
+        errorPassword.textContent = "*Campos Obligatorio";
         valido = false;
     } else if (password.validity.tooShort || password.validity.tooLong) {
-        errorPassword.textContent = "La contraseña debe tener entre 8 y 16 caracteres";
+        errorPassword.textContent = "*La contraseña debe tener entre 8 y 16 caracteres";
         valido = false;
     } else if (password.validity.patternMismatch) {
-        errorPassword.textContent = "La contraseña debe incluir mayúsculas, minúsculas, números y símbolos";
+        errorPassword.textContent = "*La contraseña debe incluir mayúsculas, minúsculas, números y símbolos";
+        valido = false;
+    } else if (password2.value !== password.value) {
+        errorPassword.textContent = "*Las contraseñas no coinciden";
         valido = false;
     } else {
         errorPassword.textContent = "";
-    }
-
-    // Validate password2
-    if (password2.validity.valueMissing) {
-        errorPassword2.textContent = "Debes introducir un valor";
-        valido = false;
-    } else if (password2 !== password) {
-        errorPassword2.textContent = "Las contraseñas no coinciden";
-        valido = false;
-    } else {
-        errorPassword2.textContent = "";
     }
 
     // If all fields are correct
@@ -114,3 +107,4 @@ const validateRegister = (event) => {
     }
 
 }
+registerButton.addEventListener("click", validateRegister);

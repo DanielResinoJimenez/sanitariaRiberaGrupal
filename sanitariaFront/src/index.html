@@ -62,9 +62,9 @@
                 class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
             <p id="errorName" class="m-0 p-0 text-right text-red-400 text-xs pr-2"></p>
             <!-- LastName -->
-            <input type="text" name="lastname" id="lastname" placeholder="Apellidos" required
+            <input type="text" name="lastname" id="lastName" placeholder="Apellidos" required
                 class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-            <p id="errorLastname" class="m-0 p-0 text-right text-red-400 text-xs pr-2"></p>
+            <p id="errorLastName" class="m-0 p-0 text-right text-red-400 text-xs pr-2"></p>
             <!-- Email -->
             <input type="email" name="email" id="emailRegister" placeholder="Correo" required
                 class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -79,13 +79,12 @@
                 </button>
             </div>
             <label for="" class="text-right text-xs text-gray-500">8-16 caracteres, mayúsculas, minúsculas, números y símbolos.</label>
-            <p id="errorPasswordRegister" class="m-0 p-0 text-right text-red-400 text-xs pr-2"></p>
             <!-- Repeat Password -->
             <input type="password" name="password2" id="password2Register" placeholder="Repetir Contraseña" required
                 class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-            <p id="errorPassword2Register" class="m-0 p-0 text-right text-red-400 text-xs pr-2"></p>
+                <p id="errorPasswordRegister" class="m-0 p-0 text-right text-red-400 text-xs pr-2"></p>
             <!-- Register -->
-            <button type="submit" class="w-full bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-700 transition my-3">Registro</button>
+            <button type="submit" class="w-full bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-700 transition my-3" id="registerButton">Registro</button>
             <hr class="my-2 text-gray-400">
             <!-- Login link -->
             <label for="" class="text-center text-sm  text-gray-500">Si ya te has registrado anteriormente... <a href="" class="text-blue-400" id="loginLink">Login</a></label>
