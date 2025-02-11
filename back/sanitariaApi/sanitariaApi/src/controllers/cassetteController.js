@@ -80,6 +80,7 @@ const updateCassette = async (req, res) => {
 
 // BORRAR CASSETTE
 const deleteCassette = async (req, res) => {
+    console.log(req.params.id)
     try {
         const deletedCassette = await cassetteService.deleteCassette(req.params.id);
         deletedCassette

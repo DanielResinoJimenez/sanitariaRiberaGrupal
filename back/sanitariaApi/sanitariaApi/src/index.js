@@ -3,6 +3,8 @@ const bodyParser = require("body-parser");
 const express = require("express");
 const cors = require('cors');
 const app = express();
+
+// Configuramos cors pata que no de error al hacer las peticiones
 app.use(cors({
     origin: 'http://localhost:5500'
   }));

@@ -56,7 +56,8 @@ const urls = {
   users : '/usuarios/all',
   cassettes : '/cassettes/all',
   cassettes_insert : '/cassettes/create',
-
+  cassettes_update : '/cassettes/modify',
+  cassettes_delete : '/cassettes/delete',
 }
 
 let cassettes = [];
@@ -145,14 +146,9 @@ const verDetallesMuestra = (index) => {
   // alert(`Detalles de la muestra:\nFecha: ${muestra.fecha}\nDescripción: ${muestra.descripcion}\nTinción: ${muestra.tincion}\nObservaciones: ${muestra.observaciones}`);
 }
 
-const saveOnDatabase = (url, data) => {;
+const post = (url, data,) => {;
 
   const url_request = urls.backend + urls[url]
-
-  console.log('data')
-  console.log(data)
-  console.log('data')
-  console.log(JSON.stringify(data))
 
   
   // Usa fetch para hacer la petición POST
@@ -172,6 +168,45 @@ const saveOnDatabase = (url, data) => {;
   });
 }
 
+const put = (url, data, id) => {
+  const url_request = urls.backend + urls[url] + '/' + id;
+
+  // Usa fetch para hacer la petición PUT
+  fetch(url_request, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log('Success:', data);
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
+};
+
+const del = (url, id) => {
+  const url_request = urls.backend + urls[url];
+
+  // Usa fetch para hacer la petición DELETE
+  fetch(url_request, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ id: id })
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log('Success:', data);
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
+};
 // Maneja el evento de clic en el botón 'Nuevo' para abrir el modal de creación de cassette
 btnNuevo.addEventListener('click', () => {
   selectedIndex = -1;
@@ -211,6 +246,9 @@ btnModificarDetalle.addEventListener('click', () => {
 // Maneja el evento de clic en el botón de confirmación de borrado para eliminar un cassette
 modalConfirmarBorrarEliminar.addEventListener('click', () => {
   cassettes.splice(selectedIndex, 1);
+  console.table('cassettes')
+  console.table(cassettes)
+  del('cassettes_delete', cassettes[selectedIndex].id_cassette);  
   localStorage.setItem('cassettes', JSON.stringify(cassettes));
   limpiarDetalles();
   actualizarTabla(cassettes);
@@ -241,7 +279,7 @@ modalSave.addEventListener('click', () => {
   cassettes.push(nuevoCassette);
 
   localStorage.setItem('cassettes', JSON.stringify(cassettes));
-  saveOnDatabase('cassettes_insert', nuevoCassette);
+  post('cassettes_insert', nuevoCassette);
   modalCassette.classList.add('hidden');
   document.body.classList.remove('modal-open');
   actualizarTabla(cassettes);
@@ -372,13 +410,14 @@ document.addEventListener('DOMContentLoaded', () => {
   selectedIndex = -1;
   //Guardar los cassettes en el localStorage
   cassettes = localStorage.getItem('cassettes') ? JSON.parse(localStorage.getItem('cassettes')) : [];
+  console.log(cassettes)
   if (cassettes.length === 0) {
-    fetch(`${urls.backend}${url.cassettes}`).then(response => response.json()).then(data =>
+    fetch(`${urls.backend}${urls.cassettes}`).then(response => response.json()).then(data =>
     {
       cassettes = data
       localStorage.setItem('cassettes', JSON.stringify(cassettes));
-      console.log('pido a la base de datoa')
       actualizarTabla(cassettes);
+      console.log(cassettes)
     }
     )
 
