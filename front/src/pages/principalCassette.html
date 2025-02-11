@@ -124,7 +124,7 @@
                 <th class="px-4 py-2 text-left text-blue-600">Órgano</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="tbody">
             </tbody>
           </table>
         </section>
@@ -159,7 +159,7 @@
         <th class="px-4 py-2 text-left text-blue-600">Tinción</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody id="muestra__tbody">
     </tbody>
   </table>
 </section>
@@ -168,7 +168,7 @@
 
   <!---------------- MODALES -------------------->
 
-  <!-- Modal Nuevo/Modificar Cassette -->
+  <!-- Modal Nuevo Cassette -->
   <div id="modalCassette" class="fixed inset-0 overflow-y-auto h-full w-full hidden modal">
     <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
       <div class="mt-3 text-center">
@@ -334,7 +334,7 @@
     </div>
   </div>
 
-  <!-- Modal Confirmación Borrar Cassette -->
+  <!-- Modal Borrar Cassette -->
   <div id="modalConfirmarBorrar" class="fixed inset-0 overflow-y-auto h-full w-full hidden modal">
     <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
       <div class="mt-3 text-center">
@@ -350,6 +350,53 @@
     </div>
   </div>
 
+<!-- Modal Ver Detalles De Una Muestra -->
+<div id="modalMuestra" class="fixed inset-0 overflow-y-auto h-full w-full hidden modal">
+  <div class="relative top-20 mx-auto p-5 border max-w-xl w-full shadow-lg rounded-md bg-white">
+    <div class="mt-3 text-center">
+      <button id="modalMuestraClose" class="absolute top-0 right-0 mt-2 mr-2 text-gray-500 hover:text-gray-700">&times;</button>
+      <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Detalles Muestra</h3>
+
+      <!-- Botones Borrar y Modificar -->
+      <div class="flex flex-wrap justify-center gap-2 mb-4">
+        <button id="borrarMuestra" class="px-4 py-2 bg-red-500 text-white text-base font-medium rounded-md shadow-sm hover:bg-red-600 flex-1">Borrar</button>
+        <button id="modificarMuestra" class="px-4 py-2 bg-blue-500 text-white text-base font-medium rounded-md shadow-sm hover:bg-blue-600 flex-1">Modificar</button>
+      </div>
+
+      <div class="mt-4 flex flex-wrap border-b pb-4">
+        <!-- Parte de características -->
+        <div class="flex-1 min-w-[200px] text-left space-y-2 pr-4 border-r">
+          <p><strong>Description:</strong> esto es una descripción</p>
+          <p><strong>Fecha:</strong> esto es una fecha</p>
+          <p><strong>Tinción:</strong> esto es una tinción</p>
+          <p><strong>Observaciones:</strong> esto es una observación</p>
+        </div>
+
+        <!-- Imagen y botón Eliminar -->
+        <div class="flex-1 flex flex-col items-center space-y-2 pl-4 min-w-[200px]">
+          <button id="modalMuestraEliminar" class="px-4 py-2 bg-red-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-red-600">Eliminar</button>
+          <img src="../assets/images/tincion.png" alt="imagen de la muestra" class="w-40 h-40 object-cover border">
+        </div>
+      </div>
+      
+<!-- Parte de imagen adicional y botón Añadir -->
+<div class="mt-4 flex flex-wrap items-center gap-4">
+  <img id="previewImage" src="../assets/images/tincion.png" alt="imagen de la muestra" class="w-32 h-32 object-cover border">
+  <div class="flex flex-col items-start gap-2">
+    <label for="modalMuestraImagen" class="px-2 py-1 bg-yellow-300 text-white text-sm font-medium rounded-md shadow-sm hover:bg-yellow-400 cursor-pointer">
+      Añadir imagen
+    </label>
+    <input type="file" id="modalMuestraImagen" class="hidden">
+
+  </div>
+</div>
+
+    </div>
+  </div>
+</div>
+
+
+
   
 <!-- Modal Nueva Muestra -->
 <div id="modalNuevaMuestra" class="fixed inset-0 overflow-y-auto h-full w-full hidden modal">
@@ -362,7 +409,7 @@
         <select id="modalMuestraTincion" class="w-full p-2 border rounded-md mb-2">
           <option disabled selected>Seleccionar Tinción</option>
           <option>Gram</option>
-          <option>Grom</option>
+          <option>Giemsa</option>
           <option>Grum</option>
           <option>Grim</option>
         </select>

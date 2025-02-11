@@ -1,7 +1,11 @@
 // Inicializamos todas las variales
 const bodyParser = require("body-parser");
 const express = require("express");
+const cors = require('cors');
 const app = express();
+app.use(cors({
+    origin: 'http://localhost:5500'
+  }));
 
 // Concectamos con la base de datos
 const sequelize = require("./database/db");
