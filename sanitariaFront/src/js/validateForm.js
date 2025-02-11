@@ -23,7 +23,7 @@ const validateLogin = (event) => {
     }
     // Validate password
     if (password.validity.valueMissing) {
-        errorPassword.textContent = "*Debes introducir un valor";
+        errorPassword.textContent = "*Debes de introducir un valor";
         valido = false;
     } else if (password.validity.tooShort || password.validity.tooLong) {
         errorPassword.textContent = "*La contraseña debe tener entre 8 y 16 caracteres";
@@ -41,6 +41,7 @@ const validateLogin = (event) => {
 }
 loginButton.addEventListener("click", validateLogin);
 
+
 // Validate formRegister
 const validateRegister = (event) => {
     event.preventDefault();
@@ -55,16 +56,14 @@ const validateRegister = (event) => {
     let password = document.getElementById('passwordRegister');
     let errorPassword = document.getElementById('errorPasswordRegister');
     let password2 = document.getElementById('password2Register');
-    let errorPassword2 = document.getElementById('errorPassword2Register');
-
     // Validate name
+
     if(name.validity.valueMissing){
         errorName.textContent = "*Campo Obligatorio";
         valido = false;
     }else{
         errorName.textContent = "";
     }
-
     // Validate lastName
     if(lastName.validity.valueMissing){
         errorLastName.textContent = "*Campo Obligatorio";
@@ -72,7 +71,6 @@ const validateRegister = (event) => {
     }else{  
         errorLastName.textContent = "";
     }
-
     // Validate email
     if(email.validity.valueMissing){
         errorEmail.textContent = "*Campo Obligatorio";
@@ -83,7 +81,6 @@ const validateRegister = (event) => {
     }else{
         errorEmail.textContent = "";
     }
-
     // Validate password
     if (password.validity.valueMissing) {
         errorPassword.textContent = "*Campos Obligatorio";
@@ -100,11 +97,36 @@ const validateRegister = (event) => {
     } else {
         errorPassword.textContent = "";
     }
-
-    // If all fields are correct
     if(valido){
-        registerForm.submit();
-    }
 
+        let user = {
+            nombre_user: name.value,
+            apellidos_user: lastName.value,
+            email_user: email.value,
+            password_user: password.value
+        }
+
+        fetch(createUserRoute, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
+
+        }).then(response => response.json())
+        .then(data => {
+            console.log(data);
+            alert("Usuario registrado correctamente");
+            loginForm.classList.remove("hiddenForm");
+            registerForm.classList.add("hiddenForm");
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+
+    }else{
+        console.log("Formulario erróneo")
+    }
 }
-registerButton.addEventListener("click", validateRegister);
+
+registerForm.addEventListener("submit", validateRegister);
