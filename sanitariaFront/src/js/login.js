@@ -13,10 +13,29 @@ const showForm = (event) => {
     if(event.target === registerLink) {
         loginForm.classList.add("hiddenForm");
         registerForm.classList.remove("hiddenForm");
+        registerForm.classList.add("animation");
+        // Clear inputs
+        registerForm.querySelectorAll("input").forEach(input => {
+            input.value = ""; 
+        });
+        // Clear errors
+        registerForm.querySelectorAll("p").forEach(error => {
+            error.textContent = "";
+        });
+      
     }
     if(event.target == loginLink) {
         loginForm.classList.remove("hiddenForm");
         registerForm.classList.add("hiddenForm");
+        loginForm.classList.add("animation"); 
+        // Clear inputs
+        loginForm.querySelectorAll("input").forEach(input => {
+            input.value = ""; 
+        });
+        // Clear errors
+        loginForm.querySelectorAll("p").forEach(error => {
+            error.textContent = "";
+        });
     }
 }
 registerLink.addEventListener("click", showForm);
@@ -28,6 +47,7 @@ const showRestartForm = (event) => {
     loginForm.classList.add("hiddenForm");
     registerForm.classList.add("hiddenForm");
     passwordForm.classList.remove("hiddenForm");
+    passwordForm.classList.add("animation");
 }
 getPassword.addEventListener("click", showRestartForm);
 
@@ -72,5 +92,8 @@ const newPassword = (event) => {
         }
     })
 }
+
+
+
 
 
