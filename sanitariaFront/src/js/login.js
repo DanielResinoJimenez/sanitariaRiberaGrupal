@@ -6,6 +6,7 @@ const passwordForm = document.getElementById('passwordForm');
 const getPassword = document.getElementById('getPassword');
 const buttonPasswordLogin = document.getElementById('showPasswordLogin');
 const buttonPasswordRegister = document.getElementById('showPasswordRegister');
+const emailNewPass = document.getElementById('emailNewPass');
 
 // Show login or register form
 const showForm = (event) => {
@@ -15,9 +16,7 @@ const showForm = (event) => {
         registerForm.classList.remove("hiddenForm");
         registerForm.classList.add("animation");
         // Clear inputs
-        registerForm.querySelectorAll("input").forEach(input => {
-            input.value = ""; 
-        });
+        registerForm.reset();
         // Clear errors
         registerForm.querySelectorAll("p").forEach(error => {
             error.textContent = "";
@@ -29,9 +28,7 @@ const showForm = (event) => {
         registerForm.classList.add("hiddenForm");
         loginForm.classList.add("animation"); 
         // Clear inputs
-        loginForm.querySelectorAll("input").forEach(input => {
-            input.value = ""; 
-        });
+        loginForm.reset();
         // Clear errors
         loginForm.querySelectorAll("p").forEach(error => {
             error.textContent = "";
@@ -71,28 +68,26 @@ buttonPasswordRegister.addEventListener("click", showPasswordRegister);
 
 
 
-
 // Create new Password
 const newPassword = (event) => {
     event.preventDefault();
 
-    const email = document.getElementById("email").value;
-
-    fetch("https://tu-servidor.com/api/reset-password", {
+    fetch("http://localhost:3000/sanitaria/usuarios/reset-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email })
+        body: JSON.stringify({ email_user: emailNewPass.value })
     })
     .then(response => response.json())
     .then(data => {
         if (data.success) {
+            window.location.href = "index.html";
             alert("Se ha enviado una nueva contraseña a tu correo electrónico");
         } else {
             alert("Hubo un error: " + data.message);
-        }
+    }
     })
 }
-
+passwordForm.addEventListener("submit", newPassword);
 
 
 

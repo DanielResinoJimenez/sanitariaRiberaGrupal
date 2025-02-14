@@ -1,5 +1,6 @@
 const loginButton = document.getElementById('loginButton');
 const registerButton = document.getElementById('registerButton');
+const createUserRoute = "http://localhost:3000/sanitaria/usuarios/register";
 
 // Validate formLogin
 const validateLogin = (event) => {

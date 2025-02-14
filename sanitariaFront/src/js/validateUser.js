@@ -1,20 +1,53 @@
-// Routes
-const getUserRoute = "http://localhost:3000/sanitaria/usuarios/allusers";
-const createUserRoute = "http://localhost:3000/sanitaria/usuarios/register";
-const comprobateUserPass = "http://localhost:3000/sanitaria/usuarios/login";
-
-let arrayUsers = [];
-
-// Get user
-const getUser = async () => {
-    const response = await fetch(getUserRoute);
-    const users = await response.json();
-    arrayUsers.push(users);
-}
+// Rutas
+const comprobateUserPass = "http://localhost:3000/usuarios/login";
 
 
-// Load data user
-const loadData = async () => {
-    await getUser();
-}
-document.addEventListener("DOMContentLoaded", loadData);
+// Función para validar el usuario y enviar las credenciales
+const validarUsuario = async (event) => {
+    event.preventDefault(); // Evita la recarga de la página
+
+    const email = document.getElementById("emailLogin").value;
+    const password = document.getElementById("passwordLogin").value;
+
+    try {
+        const response = await fetch(comprobateUserPass, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email_user: email, password_user: password }) // Enviar credenciales
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            localStorage.setItem("token", result.token); // Guardar el token en localStorage
+            alert("Inicio de sesión exitoso. Redirigiendo...");
+            window.location.href = "../pages/prueba.html"; // Redirigir 
+        } else {
+            alert(result.error || "Credenciales incorrectas");
+        }
+    } catch (error) {
+        console.error("Error:", error);
+        alert("Error de conexión con el servidor");
+    }
+};
+
+// Función para verificar autenticación en páginas protegidas
+const verificarAutenticacion = () => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        alert("No tienes sesión iniciada. Redirigiendo al login...");
+        window.location.href = "../index.html"; // Redirigir
+    }
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+    const loginForm = document.getElementById("loginForm");
+    if (loginForm) {
+        loginForm.addEventListener("submit", validarUsuario);
+    }
+    // Verificar autenticación en páginas protegidas
+    if (document.body.getAttribute("data-protected") === "true") {
+        verificarAutenticacion();
+    }
+});

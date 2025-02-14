@@ -42,6 +42,8 @@
                 </button>
             </div>
             <p id="errorPasswordLogin" class="m-0 p-0 text-right text-red-400 text-xs pr-2"></p>
+            <!-- Error Login -->
+            <p id="errorLogin" class="text-center text-red-600 text-sm"></p>
             <!-- Forget Password -->
             <a href="#" class="text-center text-sm my-3 text-blue-400" id="getPassword">Olvidaste tu contraseña...</a>
             <!-- Login -->
@@ -91,13 +93,13 @@
         </form>
 
         <!-- Form Restart Password -->
-        <form id="passwordForm" action="" method="POST" class="hiddenForm flex flex-col gap-2" novalidate>
+        <form id="passwordForm"  class="hiddenForm flex flex-col gap-2" novalidate>
             <div class="flex justify-between w-full">
                 <h1 class="text-md font-bold text-left pl-2 border-l-2 my-2 text-blue-500 mainTitle">Solicitar Contraseña...</h1>
                 <img src="./assets/images/logo.png" alt="" class="w-12 ">
             </div> 
             <!-- Email -->
-            <input type="email" name="email" id="email" placeholder="Correo" required
+            <input type="email" name="email" id="emailNewPass" placeholder="Correo" required
                 class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 my-1">
             <button type="submit" class="w-full bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-700 transition my-3">Solicitar Contraseña</button>
             <label for="" class="text-center text-sm  text-gray-500">Si ya te has registrado anteriormente... <a href="" class="text-blue-400" id="loginLink">Volver a Login</a></label>
