@@ -436,9 +436,11 @@ btnBorrarDetalle.addEventListener('click', () => {
     modalConfirmarBorrar.classList.remove('hidden');
     document.body.classList.add('modal-open');
   } else {
-    alert('No hay cassette seleccionado para borrar');
+    showAlert("No hay cassette seleccionado para borrar");
+
   }
 });
+
 
 // Maneja el evento de clic en el botón 'Modificar' para abrir el modal de modificación de cassette
 
@@ -537,7 +539,7 @@ btnNuevaMuestra.addEventListener('click', () => {
     const imageInput = document.getElementById('modalMuestraImagen');
     console.log(imageInput);
   } else {
-    alert('No hay cassette seleccionado para agregar una muestra');
+    showAlert('No hay cassette seleccionado para agregar una muestra');
   }
 });
 
@@ -908,6 +910,22 @@ order.addEventListener('click', (event) => {
   });
 
 });
+
+// Funcion para mostrar alertas
+function showAlert(message) {
+  const alertBox = document.getElementById("customAlert");
+  document.getElementById("alertMessage").textContent = message;
+  // Asegurar que la clase "hidden" se elimine antes de mostrar la alerta
+  alertBox.classList.remove("hidden");
+  // Cierra automáticamente después de 4 segundos
+  setTimeout(() => closeAlert(), 4000);
+}
+function closeAlert() {
+  const alertBox = document.getElementById("customAlert");
+  alertBox.classList.add("hidden");
+}
+
+
 
 // DOMContentLoaded
 // Inicializa la aplicación cuando el DOM está completamente cargado
