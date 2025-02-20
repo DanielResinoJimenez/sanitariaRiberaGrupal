@@ -1,5 +1,12 @@
 // REFERENCIAS DEL DOM
 
+<<<<<<< HEAD:src/js/principalCassette.js
+=======
+//Usuarios
+const administracion = document.getElementById("administracion");
+const administracion__tbody = document.getElementById("administracion__tbody");
+
+>>>>>>> c5156ea (Web finally except token):sanitariaFront/src/js/principalCassette.js
 //Nuevo cassete
 const btnNuevo = document.getElementById('btnNuevo');
 
@@ -59,6 +66,10 @@ const descMuestra = document.getElementById("descMuestra");
 const fechaMuestra = document.getElementById("fechaMuestra");
 const tincionMuestra = document.getElementById("tincionMuestra");
 const obserMuestra = document.getElementById("obserMuestra");
+<<<<<<< HEAD:src/js/principalCassette.js
+=======
+const formMuestraModify = document.getElementById("formMuestraModify");
+>>>>>>> c5156ea (Web finally except token):sanitariaFront/src/js/principalCassette.js
 
 
 //Referencias a los formularios por id
@@ -78,6 +89,12 @@ const imageInput = document.getElementById('modalMuestraImagen');
 const formMuestra = document.getElementById("formMuestra");
 const modalMuestraEliminar = document.getElementById("modalMuestraEliminar");
 const imagenMuestra = document.getElementById("imagenMuestra"); // Recuadro en detalles para ver la imagen más grande
+<<<<<<< HEAD:src/js/principalCassette.js
+=======
+const imagenesMuestra = document.getElementById("imagenesMuestra"); // Carrusell con las imagenes de la muestra
+const imagenesModificar = document.getElementById("imagenesModificar");
+const imagenMuestraModificar = document.getElementById("imagenMuestraModificar");
+>>>>>>> c5156ea (Web finally except token):sanitariaFront/src/js/principalCassette.js
 
 // Referencias a los encabezados de la tabla de cassettes
 const order = document.getElementById("order")
@@ -99,18 +116,105 @@ const urls = {
 
 // VARIABLES GLOBALES
 
+<<<<<<< HEAD:src/js/principalCassette.js
+=======
+let usuarios = [];
+>>>>>>> c5156ea (Web finally except token):sanitariaFront/src/js/principalCassette.js
 let cassettes = [];
 let muestras = [];
 let lastMuestra = []; // Esta variable se utiliza para almacenar la última muestra creada y poder subir la imagen que el pertenece
 let imagenes = [];
 let selectedIndex = -1;
 let selectedMuestraIndex = -1;
+<<<<<<< HEAD:src/js/principalCassette.js
+=======
+let selectedImagenIndex = -1;
+>>>>>>> c5156ea (Web finally except token):sanitariaFront/src/js/principalCassette.js
 let fecha_inicio = '';
 let fecha_fin = '';
 let filtered_cassettes;
 
 // PETICIONES A LA API
 
+<<<<<<< HEAD:src/js/principalCassette.js
+=======
+// Peticiones para mostrar los usuarios de la api
+
+// Cargar usuarios desde la API
+const cargarUsuarios = () => {
+  fetch(urls.backend + urls.users)
+    .then(response => response.json())
+    .then(data => actualizarTablaUsuarios(data))
+    .catch(error => console.error('Error al cargar los usuarios:', error));
+};
+
+// Función para guardar cambios en la API
+const modificarUsuario = (email_original, nuevoNombre, nuevosApellidos) => {
+  const data = {
+    nombre_user: nuevoNombre,
+    apellidos_user: nuevosApellidos,
+  };
+  // Usa fetch para hacer la petición PUT
+  fetch("http://localhost:3000/sanitaria/usuarios/modify/"+email_original, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Success:', data);
+      window.location.reload();
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+};
+
+// Función para cambiar el rol de un usuario
+const cambiarRol = (email, rolActual) => {
+  const nuevoRol = "admin"
+
+  // Usa fetch para hacer la petición PUT
+  fetch("http://localhost:3000/sanitaria/usuarios/modifyRol/"+email, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({rol: nuevoRol}),
+  })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Success:', data);
+      window.location.reload();
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+};
+
+// Función para eliminar un usuario
+const eliminarUsuario = (email) => {
+  fetch("http://localhost:3000/sanitaria/usuarios/delete/"+email, {
+    method: "DELETE",
+    headers: {
+      'Content-Type' : 'application/json'
+    },
+    body: JSON.stringify({email_user: email})
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log('Success:', data);
+    window.location.reload();
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
+};
+
+>>>>>>> c5156ea (Web finally except token):sanitariaFront/src/js/principalCassette.js
 // Petición mostrar cassettes desde la api
 
 const cassettesApi = () => {
@@ -225,7 +329,11 @@ const createMuestra = (newMuestra, formData) => {
         formData.append('id_muestra', data.id_muestra);
         // Llamar a la función para crear la imagen
         createImagen(formData);  // Enviar la imagen con el id_muestra
+<<<<<<< HEAD:src/js/principalCassette.js
         window.reload;
+=======
+        window.location.reload();
+>>>>>>> c5156ea (Web finally except token):sanitariaFront/src/js/principalCassette.js
       }
     })
     .catch(error => {
@@ -245,7 +353,11 @@ const createImagen = (formData) => {
       console.log('Imagen creada:', data);
       cargarMuestrasApi();  // Recargar las muestras con las imágenes
       mostrarMuestraPorCassette(cassettes[selectedIndex].id_cassette);
+<<<<<<< HEAD:src/js/principalCassette.js
       window.reload;
+=======
+      window.location.reload();
+>>>>>>> c5156ea (Web finally except token):sanitariaFront/src/js/principalCassette.js
     })
     .catch(error => {
       console.error('Error al crear la imagen:', error);
@@ -324,15 +436,116 @@ const deleteMuestra = (id) => {
       if (index >= 0) {
         muestras.splice(index, 1);
       }
+<<<<<<< HEAD:src/js/principalCassette.js
       
       mostrarMuestraPorCassette(selectedIndex); // 💡 Aquí aseguramos que la UI refleje el cambio
       window.reload;
+=======
+
+      mostrarMuestraPorCassette(selectedIndex); // 💡 Aquí aseguramos que la UI refleje el cambio
+      window.location.reload();
+>>>>>>> c5156ea (Web finally except token):sanitariaFront/src/js/principalCassette.js
     })
     .catch((error) => {
       console.error('Error:', error);
     });
 };
 
+<<<<<<< HEAD:src/js/principalCassette.js
+=======
+// FUNCIONES DE ADMINISTRACION DE USUARIOS
+
+// Actualizar la tabla con los usuarios obtenidos de la API
+const actualizarTablaUsuarios = (usuarios) => {
+  administracion__tbody.innerHTML = ''; 
+
+  usuarios.forEach((usuario) => {
+    const row = document.createElement('tr');
+
+    // Nombre 
+    const nombreTd = document.createElement('td');
+    const nombreInput = document.createElement('input');
+    nombreInput.type = 'text';
+    nombreInput.value = usuario.nombre_user;
+    nombreInput.classList.add('px-5', 'py-2', 'border', 'w-full');
+    nombreInput.id = "nombreInput";
+    nombreTd.appendChild(nombreInput);
+    row.appendChild(nombreTd);
+
+    // Apellidos 
+    const apellidosTd = document.createElement('td');
+    const apellidosInput = document.createElement('input');
+    apellidosInput.type = 'text';
+    apellidosInput.value = usuario.apellidos_user;
+    apellidosInput.classList.add('px-5', 'py-2', 'border', 'w-full');
+    apellidosInput.id = "apellidosInput";
+    apellidosTd.appendChild(apellidosInput);
+    row.appendChild(apellidosTd);
+
+    // Email 
+    const emailTd = document.createElement('td');
+    const emailSpan = document.createElement('span');
+    emailSpan.textContent = usuario.email_user;
+    emailSpan.classList.add('px-5', 'py-2', 'border', 'w-full');
+    emailSpan.id = "emailInput";
+    emailTd.appendChild(emailSpan);
+    row.appendChild(emailTd);
+
+    // Rol 
+    const rolTd = document.createElement('td');
+    rolTd.classList.add('px-5', 'py-2', 'font-bold', usuario.rol === 'admin' ? 'text-red-600' : 'text-green-600');
+    rolTd.textContent = usuario.rol;
+    row.appendChild(rolTd);
+
+    // Controles 
+    const controlesTd = document.createElement('td');
+    controlesTd.classList.add('px-5', 'py-2', 'flex', 'gap-2', 'justify-end', 'items-center');
+
+    // Guardar cambios
+    const guardarBtn = document.createElement('button');
+    guardarBtn.id = "guardar"
+    guardarBtn.innerHTML = '<i class="fas fa-save" id="guardar"></i>';
+    guardarBtn.classList.add('text-green-500', 'px-3', 'py-1', 'rounded');
+
+    // Cambiar Rol
+    const cambiarRolBtn = document.createElement('button');
+    cambiarRolBtn.innerHTML = usuario.rol !== 'admin' ? '<i class="fas fa-user" id="cambiarRol"></i>' : '<i class="fas fa-user-shield"></i>';
+    cambiarRolBtn.classList.add('text-yellow-500', 'px-3', 'py-1', 'rounded');
+    cambiarRolBtn.id = "cambiarRol"
+
+    // Eliminar
+    const eliminarBtn = document.createElement('button');
+    eliminarBtn.innerHTML = '<i class="fas fa-trash" id="eliminar"></i>';
+    eliminarBtn.classList.add('text-red-500', 'px-3', 'py-1', 'rounded');
+    eliminarBtn.id = "eliminar";
+
+    controlesTd.appendChild(guardarBtn);
+    controlesTd.appendChild(cambiarRolBtn);
+    controlesTd.appendChild(eliminarBtn);
+    row.appendChild(controlesTd);
+
+    administracion__tbody.appendChild(row);
+  });
+};
+
+administracion.addEventListener("click", (event) => {
+  if(event.target.tagName === "I"){
+    // Obtener la fila (<tr>) que contiene el botón
+    let fila = event.target.closest("tr"); 
+    // Obtener las celdas (<td>) de la fila
+    let celdas = fila.getElementsByTagName("td");
+    console.log(event.target)
+    if(event.target.id === "guardar"){
+      modificarUsuario(celdas[2].firstElementChild.textContent, celdas[0].firstElementChild.value, celdas[1].firstElementChild.value);
+    }else if(event.target.id === "cambiarRol"){
+      cambiarRol(celdas[2].firstElementChild.textContent, celdas[3].textContent);
+    }else if(event.target.id === "eliminar"){
+      eliminarUsuario(celdas[2].firstElementChild.textContent);
+    }
+  }
+})
+
+>>>>>>> c5156ea (Web finally except token):sanitariaFront/src/js/principalCassette.js
 // FUNCIONES DE CASSETTES
 
 // Actualiza la tabla de cassettes 
@@ -436,12 +649,19 @@ btnBorrarDetalle.addEventListener('click', () => {
     modalConfirmarBorrar.classList.remove('hidden');
     document.body.classList.add('modal-open');
   } else {
+<<<<<<< HEAD:src/js/principalCassette.js
     showAlert("No hay cassette seleccionado para borrar");
 
   }
 });
 
 
+=======
+    showAlert('No hay cassette seleccionado para borrar');
+  }
+});
+
+>>>>>>> c5156ea (Web finally except token):sanitariaFront/src/js/principalCassette.js
 // Maneja el evento de clic en el botón 'Modificar' para abrir el modal de modificación de cassette
 
 btnModificarDetalle.addEventListener('click', () => {
@@ -578,6 +798,66 @@ fechaFinInput.addEventListener('change', () => {
   actualizarTabla(filtered_cassettes);
 });
 
+<<<<<<< HEAD:src/js/principalCassette.js
+=======
+// Filtra los cassettes por fecha de inicio
+fechaInicioInput.addEventListener('change', () => {
+  fecha_inicio = fechaInicioInput.value;
+  filterCassettesByDate();
+});
+
+// Filtra los cassettes por fecha de fin
+fechaFinInput.addEventListener('change', () => {
+  fecha_fin = fechaFinInput.value;
+  filterCassettesByDate();
+});
+
+// Función que filtra los cassettes por las fechas seleccionadas
+const filterCassettesByDate = () => {
+  // Verifica si ambas fechas (fecha de inicio y fecha de fin) están seleccionadas
+  if (fecha_inicio && fecha_fin) {
+    filtered_cassettes = cassettes.filter(cassette => {
+      // Convierte la fecha del cassette a un objeto Date y establece las horas a 0
+      const cassetteDate = new Date(cassette.fecha).setHours(0, 0, 0, 0);
+      // Convierte la fecha de inicio a un objeto Date y establece las horas a 0
+      const startDate = new Date(fecha_inicio).setHours(0, 0, 0, 0);
+      // Convierte la fecha de fin a un objeto Date y establece las horas al final del día
+      const endDate = new Date(fecha_fin).setHours(23, 59, 59, 999);
+      // Retorna true si la fecha del cassette está dentro del rango 
+      return cassetteDate >= startDate && cassetteDate <= endDate;
+    });
+
+  // Si solo la fecha de inicio está seleccionada
+  } else if (fecha_inicio) {
+    // Filtra los cassettes que coinciden con la fecha de inicio seleccionada
+    filtered_cassettes = cassettes.filter(cassette => {
+      // Convierte la fecha del cassette a un objeto Date y establece las horas a 0
+      const cassetteDate = new Date(cassette.fecha).setHours(0, 0, 0, 0);
+      // Convierte la fecha de inicio a un objeto Date y establece las horas a 0
+      const startDate = new Date(fecha_inicio).setHours(0, 0, 0, 0);
+      // Retorna true si la fecha del cassette coincide con la fecha de inicio seleccionada
+      return cassetteDate === startDate;
+    });
+  // Verifica si solo la fecha de fin está seleccionada
+  } else if (fecha_fin) {
+    // Filtra los cassettes que son menores o iguales a la fecha de fin seleccionada
+    filtered_cassettes = cassettes.filter(cassette => {
+      // Convierte la fecha del cassette a un objeto Date y establece las horas a 0
+      const cassetteDate = new Date(cassette.fecha).setHours(0, 0, 0, 0);
+      // Convierte la fecha de fin a un objeto Date y establece las horas al final del día
+      const endDate = new Date(fecha_fin).setHours(23, 59, 59, 999);
+      // Retorna true si la fecha del cassette es menor o igual a la fecha de fin seleccionada
+      return cassetteDate <= endDate;
+    });
+  // Si ninguna fecha está seleccionada, mantiene todos los cassettes sin filtrar
+  } else {
+    filtered_cassettes = cassettes;
+  }
+  // Actualiza la tabla con los cassettes filtrados
+  actualizarTabla(filtered_cassettes);
+};
+
+>>>>>>> c5156ea (Web finally except token):sanitariaFront/src/js/principalCassette.js
 
 // TODAS LAS FUNCIONES DE MUESTRAS
 
@@ -724,7 +1004,10 @@ const mostrarDetallesMuestra = (id) => {
   modalMuestra.classList.remove("hidden");
   mostrarModalMuestra(id);
 
+<<<<<<< HEAD:src/js/principalCassette.js
   let imagenesMuestra = document.getElementById("imagenesMuestra"); // Carrusell con las imagenes de la muestra
+=======
+>>>>>>> c5156ea (Web finally except token):sanitariaFront/src/js/principalCassette.js
   imagenesMuestra.innerHTML = "";
   imagenPorMuestra(id).then(imagenesCargadas => {
     if (imagenesCargadas.length > 0) {
@@ -752,6 +1035,31 @@ const mostrarDetallesMuestra = (id) => {
   }).catch(error => console.error("Error al cargar la imagen:", error));
 };
 
+<<<<<<< HEAD:src/js/principalCassette.js
+=======
+// Función para mostrar la imagen en grande al pulsarla en el modal.
+imagenesMuestra.addEventListener("click", (event) => {
+  if (event.target.tagName === "IMG") {
+    imagenMuestra.src = event.target.src;
+  }
+})
+
+// Función para guardar el id de la imagen que quieres borrar al pulsar el botón borrar
+let shareEvent = "";
+imagenesModificar.addEventListener("click", (event) => {
+  if (shareEvent) {
+    shareEvent.classList.remove("border-4");
+  }
+
+  if (event.target.tagName === "IMG") {
+    event.target.classList.add("border-4");
+    selectedImagenIndex = event.target.name;
+    console.log(selectedImagenIndex);
+  }
+  shareEvent = event.target;
+})
+
+>>>>>>> c5156ea (Web finally except token):sanitariaFront/src/js/principalCassette.js
 // Función para agregar una nueva imagen desde el modal de modificar muestra
 modalMuestraImagen.addEventListener("change", (event) => {
   const file = event.target.files[0]; // Obtener el archivo seleccionado
@@ -761,22 +1069,36 @@ modalMuestraImagen.addEventListener("change", (event) => {
   formData.append('id_muestra', selectedMuestraIndex);
   createImagen(formData);
 
+<<<<<<< HEAD:src/js/principalCassette.js
   if(event.target.parentElement.parentElement.id === "formMuestra"){
+=======
+  if (event.target.parentElement.parentElement.id === "formMuestra") {
+>>>>>>> c5156ea (Web finally except token):sanitariaFront/src/js/principalCassette.js
     fetch(urls.backend + urls.muestra + '/' + selectedMuestraIndex).then(response => response.json()).then(data => {
       const muestra = data;
       console.log(muestra);
       cargarFormularioMuestras(muestra);
     })
+<<<<<<< HEAD:src/js/principalCassette.js
   }else{
     mostrarDetallesMuestra(selectedMuestraIndex);
   }
   
+=======
+  } else {
+    mostrarDetallesMuestra(selectedMuestraIndex);
+  }
+
+>>>>>>> c5156ea (Web finally except token):sanitariaFront/src/js/principalCassette.js
 })
 
 // Función para cargar los valores de la muestra seleccinada en los input del modal de modificar muestra
 // También cargamos las imagenes
 
+<<<<<<< HEAD:src/js/principalCassette.js
 const imagenMuestraModificar = document.getElementById("imagenMuestraModificar");
+=======
+>>>>>>> c5156ea (Web finally except token):sanitariaFront/src/js/principalCassette.js
 const cargarFormularioMuestras = (muestra) => {
 
   console.log(`esta es la fecha de la muestra ${muestra.fecha_muestra}`);
@@ -789,7 +1111,11 @@ const cargarFormularioMuestras = (muestra) => {
   imagenPorMuestra(selectedMuestraIndex).then(imagenesCargadas => {
     if (imagenesCargadas.length > 0) {
       imagenesCargadas.forEach((image) => {
+<<<<<<< HEAD:src/js/principalCassette.js
   
+=======
+
+>>>>>>> c5156ea (Web finally except token):sanitariaFront/src/js/principalCassette.js
         const buffer = new Uint8Array(image.imagen.data); // Convertir Buffer a Uint8Array
         const blob = new Blob([buffer], { type: image.tipo }); // Crear un Blob
         const imageUrl = URL.createObjectURL(blob); // Generar URL del Blob
@@ -800,6 +1126,7 @@ const cargarFormularioMuestras = (muestra) => {
         }
         imagenes.push(imgParams);
 
+<<<<<<< HEAD:src/js/principalCassette.js
         // let newImg = document.createElement("IMG");
         // newImg.src = imageUrl;
         // newImg.classList.add("w-32");
@@ -827,11 +1154,39 @@ const cargarFormularioMuestras = (muestra) => {
 formMuestra.addEventListener("submit", (event) => {
   event.preventDefault();
   deleteImagen(event.target.firstElementChild.nextElementSibling.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.name)
+=======
+        let newImg = document.createElement("IMG");
+        newImg.src = imageUrl;
+        newImg.name = image.id_imagen;
+        newImg.classList.add("w-32");
+        newImg.classList.add("h-32");
+        newImg.classList.add("object-cover");
+        newImg.classList.add("border");
+        imagenesModificar.appendChild(newImg);
+
+      });
+    }
+  })
+    .catch(error => {
+      console.error("Error al cargar la imagen:", error);
+      console.warn("No se encontraron imágenes para la muestra:", selectedMuestraIndex);
+      imagenMuestra.src = ""; // Limpiar la imagen si no hay datos
+    });
+
+}
+
+// Borrar muestra
+modalMuestraEliminar.addEventListener("click", () => {
+  if(selectedImagenIndex !== -1){
+    deleteImagen(selectedImagenIndex);
+  }
+>>>>>>> c5156ea (Web finally except token):sanitariaFront/src/js/principalCassette.js
 })
 
 // Modificar muestra
 formMuestra.addEventListener("submit", (event) => {
   event.preventDefault();
+<<<<<<< HEAD:src/js/principalCassette.js
 
   // Verifica si hay un ID válido antes de modificar
   if (!selectedMuestraIndex) {
@@ -859,6 +1214,29 @@ formMuestra.addEventListener("submit", (event) => {
 // Función para cerrar el modal de modificar muestra
 modalMuestraCloseModify.addEventListener("click", () => {
   modalMuestraModificar.classList.add("hidden");
+=======
+    // Verifica si hay un ID válido antes de modificar
+    if (!selectedMuestraIndex) {
+      console.error("No se encontró el ID de la muestra a modificar.");
+      return;
+    }
+
+    const muestraModified = {
+      fecha_muestra: muestraFecha.value,
+      observaciones: muestraObservacion.value,
+      descripcion: muestraDescripcion.value,
+      tincion: muestraTincion.value
+    };
+
+    if (muestraDescripcion === "" && muestraFecha === "" && muestraTincion === "" && muestraObservacion === "") {
+      console.log("No se ha modificado nada");
+    } else {
+      console.log("Muestra modificada con ID:", selectedMuestraIndex);
+      modifyMuestra(parseInt(selectedMuestraIndex), muestraModified);
+    }
+
+    modalMuestraModificar.classList.add("hidden");
+>>>>>>> c5156ea (Web finally except token):sanitariaFront/src/js/principalCassette.js
 });
 
 // Maneja el evento de clic en los botones de detalles de muestra en la tabla
@@ -925,8 +1303,11 @@ function closeAlert() {
   alertBox.classList.add("hidden");
 }
 
+<<<<<<< HEAD:src/js/principalCassette.js
 
 
+=======
+>>>>>>> c5156ea (Web finally except token):sanitariaFront/src/js/principalCassette.js
 // DOMContentLoaded
 // Inicializa la aplicación cuando el DOM está completamente cargado
 document.addEventListener('DOMContentLoaded', () => {
@@ -935,7 +1316,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const hoy = new Date().toISOString().split('T')[0];
   fechaInput.setAttribute('min', hoy);
   selectedIndex = -1;
+<<<<<<< HEAD:src/js/principalCassette.js
+=======
+  cargarUsuarios();
+>>>>>>> c5156ea (Web finally except token):sanitariaFront/src/js/principalCassette.js
   cassettesApi();
   cargarMuestrasApi();
 });
 
+<<<<<<< HEAD:src/js/principalCassette.js
+=======
+
+
+
+>>>>>>> c5156ea (Web finally except token):sanitariaFront/src/js/principalCassette.js
