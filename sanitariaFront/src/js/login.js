@@ -6,7 +6,7 @@ const passwordForm = document.getElementById('passwordForm');
 const getPassword = document.getElementById('getPassword');
 const buttonPasswordLogin = document.getElementById('showPasswordLogin');
 const buttonPasswordRegister = document.getElementById('showPasswordRegister');
-const emailNewPass = document.getElementById('emailNewPass');
+const emailNewPass = document.getElementById("emailNewPass")
 
 // Show login or register form
 const showForm = (event) => {
@@ -14,25 +14,10 @@ const showForm = (event) => {
     if(event.target === registerLink) {
         loginForm.classList.add("hiddenForm");
         registerForm.classList.remove("hiddenForm");
-        registerForm.classList.add("animation");
-        // Clear inputs
-        registerForm.reset();
-        // Clear errors
-        registerForm.querySelectorAll("p").forEach(error => {
-            error.textContent = "";
-        });
-      
     }
     if(event.target == loginLink) {
         loginForm.classList.remove("hiddenForm");
         registerForm.classList.add("hiddenForm");
-        loginForm.classList.add("animation"); 
-        // Clear inputs
-        loginForm.reset();
-        // Clear errors
-        loginForm.querySelectorAll("p").forEach(error => {
-            error.textContent = "";
-        });
     }
 }
 registerLink.addEventListener("click", showForm);
@@ -44,7 +29,6 @@ const showRestartForm = (event) => {
     loginForm.classList.add("hiddenForm");
     registerForm.classList.add("hiddenForm");
     passwordForm.classList.remove("hiddenForm");
-    passwordForm.classList.add("animation");
 }
 getPassword.addEventListener("click", showRestartForm);
 
@@ -66,8 +50,6 @@ const showPasswordRegister = () => {
 };
 buttonPasswordRegister.addEventListener("click", showPasswordRegister);
 
-
-
 // Create new Password
 const newPassword = (event) => {
     event.preventDefault();
@@ -80,15 +62,13 @@ const newPassword = (event) => {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            window.location.href = "index.html";
             alert("Se ha enviado una nueva contraseña a tu correo electrónico");
         } else {
             alert("Hubo un error: " + data.message);
-    }
+        }
     })
 }
+
 passwordForm.addEventListener("submit", newPassword);
-
-
 
 

@@ -1,6 +1,5 @@
 const loginButton = document.getElementById('loginButton');
 const registerButton = document.getElementById('registerButton');
-const createUserRoute = "http://localhost:3000/sanitaria/usuarios/register";
 
 // Validate formLogin
 const validateLogin = (event) => {
@@ -37,11 +36,31 @@ const validateLogin = (event) => {
     }
     // If all fields are correct
     if(valido){
-        loginForm.submit();
+
+        let user = {
+            email_user: email.value,
+            password_user: password.value
+        }
+
+        fetch("http://localhost:3000/sanitaria/usuarios/login", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
+
+        }).then(response => response.json())
+        .then(data => {
+            console.log(data);
+            alert("Usuario logueado correctamente");
+            window.location.href = "./pages/principalCassette.html";
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     }
 }
-loginButton.addEventListener("click", validateLogin);
-
+loginForm.addEventListener("submit", validateLogin);
 
 // Validate formRegister
 const validateRegister = (event) => {
@@ -107,7 +126,7 @@ const validateRegister = (event) => {
             password_user: password.value
         }
 
-        fetch(createUserRoute, {
+        fetch("http://localhost:3000/sanitaria/usuarios/register", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

@@ -21,7 +21,7 @@ const validarUsuario = async (event) => {
         if (response.ok) {
             localStorage.setItem("token", result.token); // Guardar el token en localStorage
             alert("Inicio de sesión exitoso. Redirigiendo...");
-            window.location.href = "../pages/prueba.html"; // Redirigir 
+            window.location.href = "../pages/prueba.html"; // Redirigir al dashboard o página protegida
         } else {
             alert(result.error || "Credenciales incorrectas");
         }
@@ -37,15 +37,18 @@ const verificarAutenticacion = () => {
 
     if (!token) {
         alert("No tienes sesión iniciada. Redirigiendo al login...");
-        window.location.href = "../index.html"; // Redirigir
+        window.location.href = "login.html"; // Redirigir al login si no hay token
     }
 };
 
+// Evento para ejecutar funciones al cargar la página
 document.addEventListener("DOMContentLoaded", () => {
+    // Agregar el evento submit al formulario
     const loginForm = document.getElementById("loginForm");
     if (loginForm) {
         loginForm.addEventListener("submit", validarUsuario);
     }
+
     // Verificar autenticación en páginas protegidas
     if (document.body.getAttribute("data-protected") === "true") {
         verificarAutenticacion();
