@@ -119,13 +119,17 @@ let fecha_inicio = '';
 let fecha_fin = '';
 let filtered_cassettes;
 
+// ALMACEN DE TOKEN EN CASO DE QUE ESTÉ CREADO
+let user = JSON.parse(sessionStorage.getItem("user"));
+let token = user.token
+
 // PETICIONES A LA API
 
 // Peticiones para mostrar los usuarios de la api
 
 // Cargar usuarios desde la API
 const cargarUsuarios = () => {
-  fetch(urls.backend + urls.users)
+  fetch(urls.backend + urls.users, {headers: {'user-token' : token}})
     .then(response => response.json())
     .then(data => actualizarTablaUsuarios(data))
     .catch(error => console.error('Error al cargar los usuarios:', error));
@@ -142,6 +146,7 @@ const modificarUsuario = (email_original, nuevoNombre, nuevosApellidos) => {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
+      'user-token' : token,
     },
     body: JSON.stringify(data),
   })
@@ -164,7 +169,8 @@ const cambiarRol = (email, rolActual) => {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
-      'Accept': 'application/json'
+      'Accept': 'application/json',
+      'user-token' : token
     },
     body: JSON.stringify({rol: nuevoRol}),
   })
@@ -183,7 +189,8 @@ const eliminarUsuario = (email) => {
   fetch("http://localhost:3000/sanitaria/usuarios/delete/"+email, {
     method: "DELETE",
     headers: {
-      'Content-Type' : 'application/json'
+      'Content-Type' : 'application/json',
+      'user-token' : token
     },
     body: JSON.stringify({email_user: email})
   })
@@ -201,9 +208,10 @@ const eliminarUsuario = (email) => {
 
 const cassettesApi = () => {
   cassettes = [];  // Limpiar el array antes de llenarlo
-  fetch(urls.backend + urls.cassettes)
+  fetch(urls.backend + urls.cassettes, {headers: {'user-token' : token}})
     .then(response => response.json())
     .then(data => {
+      console.log(data)
       data.forEach((cassette) => {
         cassettes.push(cassette);
       })
@@ -221,6 +229,7 @@ const post = (url, data,) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'user-token' : token,
     },
     body: JSON.stringify(data),
   })
@@ -244,6 +253,7 @@ const put = (url, data, id) => {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
+      'user-token' : token
     },
     body: JSON.stringify(data),
   })
@@ -267,6 +277,7 @@ const del = (url, id) => {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
+      'user-token' : token
     },
     body: JSON.stringify({ id: id })
   })
@@ -282,7 +293,7 @@ const del = (url, id) => {
 
 // Cargar muestras de cassettes
 const cargarMuestrasApi = () => {
-  fetch("http://localhost:3000/sanitaria/muestras/all")
+  fetch("http://localhost:3000/sanitaria/muestras/all", {headers: {'user-token' : token}})
     .then(response => response.json())
     .then(data => {
       muestras.length = "";
@@ -299,6 +310,7 @@ const createMuestra = (newMuestra, formData) => {
     method: "POST",
     headers: {
       'Content-Type': 'application/json',
+      'user-token' : token
     },
     body: JSON.stringify(newMuestra),  // Enviar los datos de la muestra
   })
@@ -324,6 +336,7 @@ const createMuestra = (newMuestra, formData) => {
 const createImagen = (formData) => {
   fetch("http://localhost:3000/sanitaria/imagenes/create", {
     method: "POST",
+    headers: {'user-token' : token},
     body: formData,  // Enviar el FormData con los datos de la imagen y el id_muestra
   })
     .then(result => result.json())
@@ -341,7 +354,7 @@ const createImagen = (formData) => {
 // Mostrar imagen en los detalles de la muestra
 
 const imagenPorMuestra = (id_muestra) => {
-  return fetch("http://localhost:3000/sanitaria/imagenes/" + id_muestra)
+  return fetch("http://localhost:3000/sanitaria/imagenes/" + id_muestra, {headers: {'user-token' : token}})
     .then(response => response.json())
     .then(data => {
       imagenes.length = 0; // Limpiar el array antes de llenarlo
@@ -356,7 +369,7 @@ const imagenPorMuestra = (id_muestra) => {
 const deleteImagen = (id) => {
   fetch("http://localhost:3000/sanitaria/imagenes/delete/" + id, {
     method: "DELETE",
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', 'user-token' : token },
     body: JSON.stringify({ id: id })
   })
     .then(response => response.json())
@@ -373,7 +386,8 @@ const modifyMuestra = (id, data) => {
   fetch(`http://localhost:3000/sanitaria/muestras/modify/${id}`, {
     method: 'PUT', // O el método que uses en tu backend
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'user-token' : token
     },
     body: JSON.stringify(data)
   })
@@ -399,7 +413,8 @@ const modifyMuestra = (id, data) => {
 const deleteMuestra = (id) => {
   fetch("http://localhost:3000/sanitaria/muestras/delete/" + id, {
     method: "DELETE",
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', 
+                'user-token' : token},
     body: JSON.stringify({ id: id })
   })
     .then(response => response.json())
@@ -622,6 +637,7 @@ btnBorrarDetalle.addEventListener('click', () => {
 
 btnModificarDetalle.addEventListener('click', () => {
   const cassette = cassettes[selectedIndex];
+  console.log(cassette)
   modalModificarTitle.textContent = 'Modificar Cassette';
   modalModificarFecha.value = cassette.fecha;
   modalModificarDescripcion.value = cassette.descripcion;
@@ -868,7 +884,7 @@ const mostrarModalMuestra = (id) => {
   modalMuestra.classList.remove('hidden');
   document.body.classList.remove('modal-open');
 
-  fetch("http://localhost:3000/sanitaria/muestras/" + id)
+  fetch("http://localhost:3000/sanitaria/muestras/" + id, {headers: {'user-token' : token}}) 
     .then((results) => results.json())
     .then((data) => {
       descMuestra.textContent = data.descripcion;
@@ -1119,7 +1135,7 @@ muestra__tbody.addEventListener('click', (event) => {
       selectedMuestraIndex = id; // Guarda el ID de la muestra a modificar
       console.log("Modificado de muestra con ID:", selectedMuestraIndex);
       modalMuestraModificar.classList.remove("hidden");
-      fetch(urls.backend + urls.muestra + '/' + id).then(response => response.json()).then(data => {
+      fetch(urls.backend + urls.muestra + '/' + id, {headers: {'user-token' : token}}).then(response => response.json()).then(data => {
         const muestra = data;
         console.log(muestra);
         cargarFormularioMuestras(muestra);
@@ -1148,7 +1164,7 @@ order.addEventListener('click', (event) => {
   if (target.id === 'orderOrgano')
     request_url = urls.cassettes_organo;
 
-  fetch(urls.backend + request_url).then(response => response.json()).then(data => {
+  fetch(urls.backend + request_url, {headers: {'user-token' : token}}).then(response => response.json()).then(data => {
 
     cassettes = data;
     actualizarTabla(cassettes);
@@ -1165,9 +1181,17 @@ function showAlert(message) {
   // Cierra automáticamente después de 4 segundos
   setTimeout(() => closeAlert(), 4000);
 }
+
 function closeAlert() {
   const alertBox = document.getElementById("customAlert");
   alertBox.classList.add("hidden");
+}
+
+const deshabilitarBotones = () => {
+  btnBorrarDetalle.classList.add("hidden");
+  btnModificarDetalle.classList.add("hidden");
+  btnNuevaMuestra.classList.add("hidden");
+  btnNuevo.classList.add("hidden");
 }
 
 // DOMContentLoaded
@@ -1178,7 +1202,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const hoy = new Date().toISOString().split('T')[0];
   fechaInput.setAttribute('min', hoy);
   selectedIndex = -1;
-  cargarUsuarios();
+  if(user.rol === "admin"){
+    cargarUsuarios();
+  }else{
+    administracion.classList.add("hidden");
+    // deshabilitarBotones();
+  }
   cassettesApi();
   cargarMuestrasApi();
 });

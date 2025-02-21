@@ -30,13 +30,13 @@
             </div>   
             <!-- Email -->
             <input type="email" name="email" id="emailLogin" placeholder="Correo" 
-                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mt-3">
+                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mt-3" required>
             <p id="errorEmailLogin" class="m-0 p-0 text-right text-red-400 text-xs pr-2"></p>
             <!-- Password -->
             <div class="flex items-center border border-gray-300 rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-blue-500">
                 <input type="password" name="password" id="passwordLogin" placeholder="Contraseña"  minlength="8" maxlength="16" 
                     pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,16}$"
-                    class="w-full p-3 focus:outline-none">
+                    class="w-full p-3 focus:outline-none" required>
                 <button type="button" class="p-3 text-gray-500" id="showPasswordLogin">
                     <i class="fa-solid fa-eye-slash"></i>
                 </button>
@@ -52,28 +52,28 @@
         </form>
 
         <!-- Form Register-->
-        <form id="registerForm" class="hiddenForm flex flex-col gap-2">
+        <form id="registerForm" class="hiddenForm flex flex-col gap-2" novalidate>
             <div class="flex justify-between w-full">
                 <h1 class="text-md font-bold text-left pl-2 border-l-2 my-2 text-blue-500 mainTitle">Crear una cuenta...</h1>
                 <img src="./assets/images/logo.png" alt="" class="w-12 ">
             </div> 
             <!-- Name -->
             <input type="text" name="name" id="name" placeholder="Nombre" 
-                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
             <p id="errorName" class="m-0 p-0 text-right text-red-400 text-xs pr-2"></p>
             <!-- LastName -->
             <input type="text" name="lastname" id="lastName" placeholder="Apellidos" 
-                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
             <p id="errorLastName" class="m-0 p-0 text-right text-red-400 text-xs pr-2"></p>
             <!-- Email -->
             <input type="email" name="email" id="emailRegister" placeholder="Correo" 
-                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
             <p id="errorEmailRegister" class="m-0 p-0 text-right text-red-400 text-xs pr-2"></p>
             <!-- Password -->
             <div class="flex items-center border border-gray-300 rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-blue-500">
                 <input type="password" name="password" id="passwordRegister" placeholder="Contraseña"  minlength="8" maxlength="16" 
                 pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,16}$"
-                class="w-full p-3 focus:outline-none">
+                class="w-full p-3 focus:outline-none" required>
                 <button type="button" class="p-3 text-gray-500" id="showPasswordRegister">
                     <i class="fa-solid fa-eye-slash"></i>
                 </button>
@@ -81,7 +81,7 @@
             <label for="" class="text-right text-xs text-gray-500">8-16 caracteres, mayúsculas, minúsculas, números y símbolos.</label>
             <!-- Repeat Password -->
             <input type="password" name="password2" id="password2Register" placeholder="Repetir Contraseña" 
-                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
                 <p id="errorPasswordRegister" class="m-0 p-0 text-right text-red-400 text-xs pr-2"></p>
             <!-- Register -->
             <button type="submit" class="w-full bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-700 transition my-3" id="registerButton">Registro</button>
@@ -98,7 +98,7 @@
             </div> 
             <!-- Email -->
             <input type="email" name="email" id="emailNewPass" placeholder="Correo" 
-                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 my-1">
+                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 my-1" required>
             <button type="submit" class="w-full bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-700 transition my-3">Solicitar Contraseña</button>
             <label for="" class="text-center text-sm  text-gray-500">Si ya te has registrado anteriormente... <a href="" class="text-blue-400" id="loginLink">Volver a Login</a></label>
         </form>

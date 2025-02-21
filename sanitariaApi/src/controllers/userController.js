@@ -43,16 +43,16 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
     try {
-        const result = await Services.login(req.body);
+        const result = await Services.login(req);
 
-        if (result) {
-            const token = Services.createToken(result); // Usa la función importada
-            res.status(200).json({ token });
+        if (result.ok) {
+            res.status(200).json(result);
         } else {
             res.status(401).json({ error: "Usuario o contraseña incorrectos" });
         }
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        console.error("Error en login:", error);
+        res.status(500).json({ error: "Error interno del servidor" });
     }
 };
 

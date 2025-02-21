@@ -2,15 +2,17 @@ const jwt = require("jwt-simple");
 const moment = require("moment")
 
 const checkToken = (req, res, next) => {
-  const userToken = req.headers["user-token"];
-  let payload = {};
-
-  if (!userToken) {
+  
+  if (!req.headers['user-token']) {
     return res.json({ error: "Falta Token" });
   }
 
+  const userToken = req.headers["user-token"];
+  let payload = {};
+  // res.send(req.headers['user-token']);
+
   try {
-    payload = jwt.decode(userToken, "frase para probar .env");
+    payload = jwt.decode(userToken, "Token256");
   } catch (error) {
     return res.json({ error: "Token incorrecto" });
   }

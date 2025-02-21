@@ -1,15 +1,46 @@
 const loginButton = document.getElementById('loginButton');
 const registerButton = document.getElementById('registerButton');
+const email = document.getElementById('emailLogin');
+const errorEmail = document.getElementById('errorEmailLogin');
+const password = document.getElementById('passwordLogin');
+const errorPassword = document.getElementById('errorPasswordLogin');
 
-// Validate formLogin
-const validateLogin = (event) => {
-    event.preventDefault();
+// Función api
+const postLogin = () => {
+    let user = {
+        email_user: email.value,
+        password_user: password.value
+    }
+    console.log(user)
+
+    fetch("http://localhost:3000/sanitaria/usuarios/login", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(user)
+
+    })
+    .then(response => response.json())
+    .then(data => {
+        if(data.ok){
+            sessionStorage.setItem('user', JSON.stringify(data.user));
+            location.href="./pages/principalCassette.html";
+        }else{
+            console.log("Usuario o contraseña inválidos");
+            errorPassword.textContent="Usuario o contraseña inválidos";
+            return false;
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+// Validación del login
+
+const validacionLogin = () => {
     let valido = true;
-    // Get values
-    let email = document.getElementById('emailLogin');
-    let errorEmail = document.getElementById('errorEmailLogin');
-    let password = document.getElementById('passwordLogin');
-    let errorPassword = document.getElementById('errorPasswordLogin');
     
     // Validate email
     if(email.validity.valueMissing){
@@ -34,30 +65,15 @@ const validateLogin = (event) => {
     } else {
         errorPassword.textContent = "";
     }
+    return valido;
+}
+
+// Validate formLogin
+const validateLogin = (event) => {
+    event.preventDefault();
     // If all fields are correct
-    if(valido){
-
-        let user = {
-            email_user: email.value,
-            password_user: password.value
-        }
-
-        fetch("http://localhost:3000/sanitaria/usuarios/login", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(user)
-
-        }).then(response => response.json())
-        .then(data => {
-            console.log(data);
-            alert("Usuario logueado correctamente");
-            window.location.href = "./pages/principalCassette.html";
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
+    if(validacionLogin()){
+        postLogin();
     }
 }
 loginForm.addEventListener("submit", validateLogin);

@@ -1,5 +1,5 @@
 const apirouter = require("express").Router();
-// const { checkToken } = require("./middlewares");
+const middleware = require("./middleware");
 
 // Variables
 const userRouter = require("./userRouter");
@@ -10,13 +10,9 @@ const imagenRouter = require("./imagenRouter");
 
 // Rutas
 apirouter.use("/usuarios", userRouter);
-apirouter.use("/cassettes", cassetteRouter);
-apirouter.use("/muestras", muestraRouter);
-apirouter.use("/imagenes", imagenRouter);
-// apirouter.use("/vehiculos",checkToken, vehiculosrouter)
-// apirouter.use("/fabricantes", fabricantesrouter);
-// apirouter.use("/fabricantes",checkToken, fabricantesrouter)
-// apirouter.use("/compras", comprasrouter);
+apirouter.use("/cassettes", middleware.checkToken, cassetteRouter);
+apirouter.use("/muestras", middleware.checkToken, muestraRouter);
+apirouter.use("/imagenes", middleware.checkToken, imagenRouter);
 
 
 module.exports = apirouter;

@@ -14,10 +14,12 @@ const showForm = (event) => {
     if(event.target === registerLink) {
         loginForm.classList.add("hiddenForm");
         registerForm.classList.remove("hiddenForm");
+        loginForm.reset();
     }
     if(event.target == loginLink) {
         loginForm.classList.remove("hiddenForm");
         registerForm.classList.add("hiddenForm");
+        registerForm.reset();
     }
 }
 registerLink.addEventListener("click", showForm);
@@ -53,6 +55,7 @@ buttonPasswordRegister.addEventListener("click", showPasswordRegister);
 // Create new Password
 const newPassword = (event) => {
     event.preventDefault();
+    console.log(emailNewPass.value)
 
     fetch("http://localhost:3000/sanitaria/usuarios/reset-password", {
         method: "POST",

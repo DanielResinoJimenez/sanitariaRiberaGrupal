@@ -42,9 +42,9 @@ const resetUserPassword = async (email) => {
 
         // Encriptar la nueva contraseña
         const hashedPassword = await bcrypt.hash(newPassword, 10);
-
+        
         // Actualizar la contraseña en la base de datos
-        await user.update({ password: hashedPassword });
+        await user.update({ password_user: hashedPassword});
 
         console.log('Contraseña actualizada en la base de datos.');
 
@@ -74,8 +74,11 @@ const createToken = (user) => {
 // LOGIN DE USUARIO
 const login = async (req) => {
     try {
+        // Acceder correctamente a req.body
+        const { email_user, password_user } = req.body;
+
         // Buscar usuario por email
-        const user = await User.findOne({ where: { email_user: req.email_user } });
+        const user = await User.findOne({ where: { email_user } });
 
         // Validar si el usuario existe
         if (!user) {
@@ -83,14 +86,21 @@ const login = async (req) => {
         }
 
         // Comparar la contraseña ingresada con la almacenada en la base de datos
-        const isCorrectPass = await bcrypt.compare(req.password_user, user.password_user);
+        const isCorrectPass = await bcrypt.compare(password_user, user.password_user);
         if (!isCorrectPass) {
             return { error: "Usuario o contraseña incorrectos" };
         }
 
-        // Crear token y devolverlo en la respuesta
         const token = createToken(user);
-        return { token };
+
+        return { 
+            ok: true, 
+            success: token, 
+            user: {
+                email_user: user.email_user,
+                rol: user.rol,
+                token: token
+            } }; // Asegúrate de devolver un objeto con 'ok' si el login es exitoso, Enviamos también el token
     } catch (error) {
         console.error("Error en login:", error);
         return { error: "Ocurrió un error en el login" };
